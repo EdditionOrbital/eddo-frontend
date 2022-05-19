@@ -1,4 +1,4 @@
-import { HStack, Image, Text, useColorModeValue } from "@chakra-ui/react"
+import { HStack, Image, Text } from "@chakra-ui/react"
 import Emblem from './Emblem.svg'
 
 const Logo = ({truncated, height}) => {

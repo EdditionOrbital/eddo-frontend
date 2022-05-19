@@ -9,7 +9,6 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './views/HomePage/HomePage';
 import { CURRENT_USER } from './_queries';
 import AllModulesPage from './views/AllModulesPage/AllModulesPage';
-import { ColorModeSwitcher } from './ColorModeSwitcher';
 
 const theme = extendTheme({
   "colors": {
