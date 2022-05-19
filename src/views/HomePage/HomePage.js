@@ -1,5 +1,4 @@
-import { Box, Button, Heading, ListItem, Spacer, Text, UnorderedList, VStack } from "@chakra-ui/react"
-import Navbar from "../../components/Navbar/Navbar"
+import { Box, Button, Heading, ListItem, Text, UnorderedList, VStack } from "@chakra-ui/react"
 import { AUTH_TOKEN } from "../../utils/constants"
 
 const HomePage = ({user, setUser}) => { 
@@ -11,8 +10,6 @@ const HomePage = ({user, setUser}) => {
 
     return (
         <Box p={12}>
-            <Navbar />
-            <Spacer />
             <VStack spacing={12} align='baseline'>
                 <VStack spacing={4} align='baseline'>
                     <Heading size='lg'>Token</Heading>
@@ -34,7 +31,6 @@ const HomePage = ({user, setUser}) => {
                 </VStack>
                 <Button mt={6} onClick={logOut}>Log Out</Button>
             </VStack>
-            
         </Box>
     )
 }

@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './views/HomePage/HomePage';
 import { CURRENT_USER } from './_queries';
 import AllModulesPage from './views/AllModulesPage/AllModulesPage';
+import Navbar from './components/Navbar/Navbar';
 
 const theme = extendTheme({
   "colors": {
@@ -76,6 +77,7 @@ function App() {
   
   return (
     <ChakraProvider theme={theme}>
+        <Navbar/>
         {user === undefined ? <></> : user === null ? <LoginPage {...props}/> : routes }
     </ChakraProvider>
   );
