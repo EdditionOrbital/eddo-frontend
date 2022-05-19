@@ -1,7 +1,8 @@
-import { Box, HStack, Image, Spacer, VStack } from "@chakra-ui/react"
+import { Box, HStack, Image, Spacer, useColorModeValue, VStack } from "@chakra-ui/react"
 import { isMobile } from "react-device-detect"
 import LoginForm from "../../components/LoginForm/LoginForm"
 import LoginPageBackground from './LoginPageBackground.svg'
+
 
 const LoginPage = () => {
     return (
@@ -11,7 +12,7 @@ const LoginPage = () => {
                     <Image src={LoginPageBackground} minH='100vh' minW='60vw'/>
                 </Box>
             }
-            <Box w='50%' minW={500} h='100%' bgColor='white'>
+            <Box w='50%' minW={500} h='100%' bgColor={useColorModeValue('white', 'black')}>
                 <VStack h='100%' w='full'>
                     <Spacer/>
                     <LoginForm/>

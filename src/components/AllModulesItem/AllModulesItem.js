@@ -1,8 +1,13 @@
-import { Box, Heading, Spacer, Text, VStack } from "@chakra-ui/react"
+import { Box, Heading, Spacer, Text, useColorModeValue, VStack } from "@chakra-ui/react"
+import { currentSem, currentYear } from "../../services/currentYearSemester"
+import './AllModulesItem.css'
 
 const AllModulesItem = ({ module }) => {
+
+    const isCurrentModule = module.year === currentYear && module.semester === currentSem
+    
     return (
-        <Box border='1px' borderColor='gray.300' borderRadius={12} p={6}>
+        <Box borderColor={useColorModeValue('gray.100', 'gray.700')} opacity={isCurrentModule ? 1 : 0.2} className={`all-modules-item all-modules-item-${useColorModeValue('light', 'dark')}`} p={6}>
             <VStack w='full' align='baseline' spacing={6} minH={200}>
                 <VStack w='full' align='baseline' spacing={2}>
                     <Text opacity={0.7}>{module.code}</Text>

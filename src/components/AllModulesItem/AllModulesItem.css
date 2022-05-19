@@ -1,0 +1,16 @@
+.all-modules-item {
+    border-width: 1px;
+    border-radius: 12px;
+}
+
+.all-modules-item:hover {
+    cursor: pointer;
+}
+
+.all-modules-item-light:hover {
+    background-color: var(--chakra-colors-gray-100);
+}
+
+.all-modules-item-dark:hover {
+    background-color: var(--chakra-colors-gray-700);
+}
