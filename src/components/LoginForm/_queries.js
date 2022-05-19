@@ -8,3 +8,12 @@ export const LOGIN_MUTATION = gql`
         }
     }
 `
+
+export const REGISTER_MUTATION = gql`
+    mutation RegisterMutation($id: ID!, $firstName: String!, $lastName: String, $email: String!, $password: String!, $mYear: Int!) {
+        register(id: $id, firstName: $firstName, lastName: $lastName, email: $email, password: $password, mYear: $mYear) {
+            token
+            error
+        }
+    }
+`

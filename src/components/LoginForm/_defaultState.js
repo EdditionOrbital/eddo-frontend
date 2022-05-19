@@ -1,7 +1,11 @@
 export const defaultFormState = {
     login: true,
+    matricNo: '',
+    firstName: '',
+    lastName: '',
     email: '',
-    password: ''
+    password: '',
+    mYear: 2018,
 }
 
 export const defaultLoginErrorState = {
