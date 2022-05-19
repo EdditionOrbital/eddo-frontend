@@ -35,7 +35,7 @@ const MobileMenuButtons = (
   </VStack>
 )
 
-export default NavbarAlt = () => {
+export default function NavbarAlt() {
 
   const [shown, setShown] = useState(false)
 
