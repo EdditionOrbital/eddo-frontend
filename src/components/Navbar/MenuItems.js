@@ -1,11 +1,11 @@
 export const MenuItems = [
   {
     title: 'Home',
-    url: '#',
+    url: '/',
   },
   {
     title: 'Modules',
-    url: '#',
+    url: 'modules',
   },
   {
     title: 'Email',
