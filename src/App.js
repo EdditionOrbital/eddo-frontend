@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  Box,
   ChakraProvider,
   extendTheme,
 } from '@chakra-ui/react';
@@ -69,15 +70,18 @@ function App() {
   }
 
   const routes = (
-    <Routes>
-      <Route path='/' element={<HomePage {...props}/>}/>
-      <Route path='/modules' element={<AllModulesPage {...props}/>}/>
-    </Routes>
+    <Box>
+      <NavbarAlt/>
+      <Routes>
+        <Route path='/' element={<HomePage {...props}/>}/>
+        <Route path='/modules' element={<AllModulesPage {...props}/>}/>
+      </Routes>
+    </Box>
+    
   )
   
   return (
     <ChakraProvider theme={theme}>
-        <NavbarAlt />
         {user === undefined ? <></> : user === null ? <LoginPage {...props}/> : routes }
     </ChakraProvider>
   );
