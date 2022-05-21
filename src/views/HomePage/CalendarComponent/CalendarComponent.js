@@ -6,7 +6,7 @@ import 'react-day-picker/dist/style.css';
 const CalendarComponent = () => {
     return (
         <VStack w='full' alignItems='baseline' spacing={8}>
-            <Heading size='lg'>Your Calendar</Heading>
+            <Heading size='lg' colorScheme='charcoal'>Your Calendar</Heading>
             <DayPicker/>
             <VStack w='full' spacing={4}>
             <HStack spacing={2} w='full'>
