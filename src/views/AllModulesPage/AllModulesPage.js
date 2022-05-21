@@ -34,7 +34,7 @@ const AllModulesPage = ({user}) => {
 
     return (
         <VStack spacing={8} alignItems='baseline'>
-            <Heading colorScheme='gray'>Your Modules</Heading>
+            <Heading colorScheme='charcoal'>Your Modules</Heading>
             <SimpleGrid minChildWidth={100} spacing={4} w='full' maxWidth='600px'>
                 {options.map(
                     o => <Button key={o} colorScheme={getButtonColorScheme(o)} onClick={() => setMode(o)}>

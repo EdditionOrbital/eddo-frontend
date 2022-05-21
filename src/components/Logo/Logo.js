@@ -8,7 +8,7 @@ const Logo = ({truncated, height}) => {
             <Image src={Emblem} maxH={height}/>
             {
                 truncated ? <></> :
-                <Text fontWeight='medium' fontSize={`calc(${height} * 0.8)`} colorScheme='gray'>eddo</Text>
+                <Text fontWeight='medium' fontSize={`calc(${height} * 0.8)`} colorScheme='charcoal'>eddo</Text>
             }
         </HStack>
     )
