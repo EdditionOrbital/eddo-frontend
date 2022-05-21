@@ -1,1 +1,0 @@
-export const Announcements = [{body: 'git'}, {body: 'better'}, {body: 'boi'}]

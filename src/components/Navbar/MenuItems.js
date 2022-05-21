@@ -12,10 +12,6 @@ export const MenuItems = [
     url: '#',
   },
   {
-    title: 'OneDrive',
-    url: '#',
-  },
-  {
     title: 'Timetable',
     url: '#',
   },

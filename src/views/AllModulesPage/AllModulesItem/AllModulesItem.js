@@ -1,5 +1,5 @@
 import { Box, Heading, Spacer, Text, useColorModeValue, VStack } from "@chakra-ui/react"
-import { currentSem, currentYear } from "../../services/currentYearSemester"
+import { currentSem, currentYear } from "../../../services/currentYearSemester"
 import './AllModulesItem.css'
 
 const AllModulesItem = ({ module }) => {

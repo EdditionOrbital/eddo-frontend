@@ -1,8 +1,7 @@
 import { Box, HStack, Image, Spacer, useBreakpointValue, useColorModeValue, VStack } from "@chakra-ui/react"
 import { isMobile } from "react-device-detect"
-import LoginForm from "../../components/LoginForm/LoginForm"
+import LoginForm from "./LoginForm/LoginForm"
 import LoginPageBackground from './LoginPageBackground.svg'
-
 
 const LoginPage = () => {
 

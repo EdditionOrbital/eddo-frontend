@@ -1,1 +1,0 @@
-export const Tasks = [{body: 'git'}, {body: 'good'}, {body: 'scrub'}]

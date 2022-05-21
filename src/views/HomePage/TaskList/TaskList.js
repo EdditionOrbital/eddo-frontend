@@ -1,9 +1,9 @@
-import { Box, Button, Checkbox, Heading, HStack, Spacer, Text, VStack } from "@chakra-ui/react"
+import { Button, Checkbox, Heading, HStack, Spacer, Text, VStack } from "@chakra-ui/react"
 
 const TaskList = () => {
     return (
         <VStack w='full' alignItems='baseline' spacing={4}>
-            <Heading size='md'>Your Tasks</Heading>
+            <Heading size='lg'>Your Tasks</Heading>
             <VStack w='full' spacing={2}>
                 <HStack w='full' borderRadius='md' border='1px solid #ccc' p={3}>
                     <Text>Task 1</Text>

@@ -4,82 +4,71 @@ import {
   Button,
   IconButton,
   Link,
+  HStack,
+  Spacer,
+  useColorModeValue,
+  VStack,
   useBreakpointValue,
 } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import { MenuItems } from './MenuItems';
 import Logo from '../Logo/Logo';
+import { isMobile } from 'react-device-detect';
+
+const MenuButtons = (
+  <Flex w="full" maxW={800}>
+    <Spacer />
+    {MenuItems.map(i => (
+      <Link href={i.url}>
+        <Button variant="ghost" w="full" size="md">
+          {i.title}
+        </Button>
+      </Link>
+    ))}
+  </Flex>
+);
+
+const MobileMenuButtons = (
+  <VStack w="full">
+    {MenuItems.map(i => (
+      <Link href={i.url} w="full">
+        <Button variant="ghost" w="full" size="md">
+          {i.title}
+        </Button>
+      </Link>
+    ))}
+  </VStack>
+);
 
 export default function Navbar() {
-  const [display, changeDisplay] = useState('none');
-  const truncated = useBreakpointValue({ base: true, md: false });
+  const [shown, setShown] = useState(false);
+  const isSmallScreen = useBreakpointValue({ base: true, lg: false });
 
   return (
-    <Flex>
-      <Flex pos="fixed" top="1rem" left="1rem" align="center">
-        <Logo truncated={truncated}/>
-      </Flex>
-      <Flex pos="fixed" top="1rem" right="1rem" align="center">
-        <Flex display={['none', 'none', 'flex', 'flex']}>
-          {MenuItems.map((item, index) => {
-            return (
-              <Link href={item.url}>
-                <Button as="a" variant="ghost" aria-label={item.title} w="100%">
-                  {item.title}
-                </Button>
-              </Link>
-            );
-          })}
-        </Flex>
-        <IconButton
-          aria-label="Open Menu"
-          size="lg"
-          mr={2}
-          icon={<HamburgerIcon />}
-          display={['flex', 'flex', 'none', 'none']}
-          onClick={() => changeDisplay('flex')}
-        />
-      </Flex>
-      <Flex
-        w="100vw"
-        bgColor="gray.50"
-        zIndex={20}
-        h="100vh"
-        pos="fixed"
-        top="0"
-        left="0"
-        overflowY="auto"
-        flexDir="column"
-        display={display}
-      >
-        <Flex justify="flex-end">
+    <VStack
+      pl={8}
+      pr={8}
+      pb={4}
+      pt={4}
+      borderBottom="1px"
+      minH="84px"
+      borderColor={useColorModeValue('gray.100', 'gray.700')}
+    >
+      <HStack w="full">
+        <Logo height="36px" truncated={isMobile} />
+        <Spacer />
+        {isMobile || isSmallScreen ? (
           <IconButton
-            mt={2}
-            mr={2}
-            aria-label="Close Menu"
+            variant="ghost"
             size="lg"
-            icon={<CloseIcon />}
-            onClick={() => changeDisplay('none')}
+            onClick={() => setShown(!shown)}
+            icon={shown ? <CloseIcon /> : <HamburgerIcon />}
           />
-        </Flex>
-        <Flex flexDir="column" align="center">
-          {MenuItems.map((item, index) => {
-            return (
-              <Link href={item.url}>
-                <Button
-                  as="a"
-                  variant="ghost"
-                  aria-label={item.title}
-                  my={2}
-                  w="100%"
-                >
-                  {item.title}
-                </Button>
-              </Link>
-            );
-          })}
-        </Flex>
-      </Flex>
-    </Flex>
+        ) : (
+          MenuButtons
+        )}
+      </HStack>
+      {(isMobile || isSmallScreen) && shown ? MobileMenuButtons : <></>}
+    </VStack>
   );
 }

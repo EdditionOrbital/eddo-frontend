@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client"
 import { Button, Heading, SimpleGrid, VStack } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
-import AllModulesItem from "../../components/AllModulesItem/AllModulesItem"
+import AllModulesItem from "./AllModulesItem/AllModulesItem"
 import { currentSem, currentYear } from "../../services/currentYearSemester"
 import { CURRENT_USER_MODULES } from "./_queries"
 
@@ -33,7 +33,7 @@ const AllModulesPage = ({user}) => {
     }, [loading, error, data, mode])
 
     return (
-        <VStack spacing={8} p={12} alignItems='baseline'>
+        <VStack spacing={8} alignItems='baseline'>
             <Heading colorScheme='gray'>Your Modules</Heading>
             <SimpleGrid minChildWidth={100} spacing={4} w='full' maxWidth='600px'>
                 {options.map(

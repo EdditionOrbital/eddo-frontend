@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client"
 import { Box, Button, Center, Input, Select, SimpleGrid, Spacer, useToast, VStack } from "@chakra-ui/react"
 import { useState } from "react"
-import Logo from "../Logo/Logo"
-import { AUTH_TOKEN } from "../../utils/constants"
+import Logo from "../../../components/Logo/Logo"
+import { AUTH_TOKEN } from "../../../utils/constants"
 import { defaultFormState } from "./_defaultState"
 import { LOGIN_MUTATION, REGISTER_MUTATION } from "./_queries"
 

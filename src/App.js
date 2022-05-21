@@ -10,7 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 import HomePage from './views/HomePage/HomePage';
 import { CURRENT_USER } from './_queries';
 import AllModulesPage from './views/AllModulesPage/AllModulesPage';
-import NavbarAlt from './components/Navbar/NavbarAlt';
+import Navbar from './components/Navbar/Navbar';
 
 const theme = extendTheme({
   "colors": {
@@ -71,11 +71,13 @@ function App() {
 
   const routes = (
     <Box>
-      <NavbarAlt/>
+      <Navbar/>
+      <Box p={12}>
       <Routes>
         <Route path='/' element={<HomePage {...props}/>}/>
         <Route path='/modules' element={<AllModulesPage {...props}/>}/>
       </Routes>
+      </Box>
     </Box>
     
   )
