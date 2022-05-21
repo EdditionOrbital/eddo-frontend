@@ -1,4 +1,4 @@
-import { Heading, HStack, Text, VStack } from "@chakra-ui/react"
+import { Heading, Text, VStack } from "@chakra-ui/react"
 
 const AnnouncementList = () => {
     return (
