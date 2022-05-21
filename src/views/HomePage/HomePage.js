@@ -19,13 +19,13 @@ const HomePage = ({ user, setUser }) => {
 return (
   <Grid gap='16' templateColumns={[null, 'repeat(1,1fr)', 'repeat(2,1fr)', 'repeat(3,1fr)']}>
     <GridItem w='full'>
-      <CalendarComponent/>
-    </GridItem>
-    <GridItem w='full'>
       <VStack spacing={12}>
         <WelcomeHeader user={user}/>
         <TaskList/>
       </VStack>
+    </GridItem>
+    <GridItem w='full'>
+      <CalendarComponent/>
     </GridItem>
     <GridItem w='full'>
       <AnnouncementList/>
