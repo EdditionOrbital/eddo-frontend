@@ -1,10 +1,36 @@
-import {Heading, HStack, Spacer, Tag, VStack } from '@chakra-ui/react';
+import {
+  Heading,
+  HStack,
+  Spacer,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  VStack,
+} from '@chakra-ui/react';
+import { LoneSchemaDefinitionRule } from 'graphql';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import MenuTab from './MenuTab';
+import CalendarEvent from './CalendarEvent';
 
 const CalendarComponent = () => {
-  const tabs = ['All', 'Lectures', 'Tutorials', 'Exams', 'Deadlines'];
+  const tabTitles = ['All', 'Lectures', 'Tutorials', 'Exams', 'Deadlines'];
+  const events = [
+    {
+      title: 'CS2040S Lecture',
+      tag: 'Lecture',
+      startTime: '14:00',
+      endTime: '15:00',
+    },
+    {
+      title: 'CS2040S Tutorial',
+      tag: 'Tutorial',
+      startTime: '15:00',
+      endTime: '16:00',
+    },
+    { title: 'CS2040S PSET 1', tag: 'Deadline' },
+  ];
 
   return (
     <VStack w="full" alignItems="baseline" spacing={8}>
@@ -14,28 +40,43 @@ const CalendarComponent = () => {
       <DayPicker />
       <VStack w="full" spacing={4}>
         <HStack spacing={2} w="full">
-          {tabs.map(tab => (
-              <MenuTab title={tab} />
-          ))}
+          <Tabs
+            variant="soft-rounded"
+            colorScheme="purple"
+            size="sm"
+          >
+            <TabList>
+              {tabTitles.map(t => (
+                <Tab>{t}</Tab>
+              ))}
+            </TabList>
+            <TabPanels>
+              <TabPanel>{events.map(e => CalendarEvent(e))}</TabPanel>
+              <TabPanel>
+                {events
+                  .filter(e => e.tag === 'Lecture')
+                  .map(e => CalendarEvent(e))}
+              </TabPanel>
+              <TabPanel>
+                {events
+                  .filter(e => e.tag === 'Tutorial')
+                  .map(e => CalendarEvent(e))}
+              </TabPanel>
+              <TabPanel>
+                {events
+                  .filter(e => e.tag === 'Exam')
+                  .map(e => CalendarEvent(e))}
+              </TabPanel>
+              <TabPanel>
+                {events
+                  .filter(e => e.tag === 'Deadline')
+                  .map(e => CalendarEvent(e))}
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
           <Spacer />
         </HStack>
-        <VStack w="full" spacing={2}>
-          <HStack w="full" borderRadius="md" border="1px solid #ccc" p={3}>
-            <VStack alignItems="baseline" spacing={2}>
-              <Heading size="sm">CS2040S Lecture</Heading>
-              <Tag colorScheme="purple" size="sm">
-                Lecture
-              </Tag>
-            </VStack>
-            <Spacer />
-            <VStack alignItems="flex-end" spacing={0}>
-              <Heading size="sm">14:00</Heading>
-              <Heading size="xs" opacity={0.3}>
-                15:00
-              </Heading>
-            </VStack>
-          </HStack>
-        </VStack>
+        <VStack w="full" spacing={2}></VStack>
       </VStack>
     </VStack>
   );
