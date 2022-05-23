@@ -32,6 +32,15 @@ const CalendarComponent = () => {
     { title: 'CS2040S PSET 1', tag: 'Deadline' },
   ];
 
+  const makeTabPanel = (type) => (
+    <TabPanel>
+      <VStack w='full' alignItems='baseline' spacing={3}>
+        {events.filter(e => type !== 'All' ? e.tag + 's' === type : true).map(e => CalendarEvent(e))}
+      </VStack>
+
+    </TabPanel>
+  )
+
   return (
     <VStack w="full" alignItems="baseline" spacing={8}>
       <Heading size="lg" colorScheme="charcoal">
@@ -44,34 +53,15 @@ const CalendarComponent = () => {
             variant="soft-rounded"
             colorScheme="purple"
             size="sm"
+            px={0}
           >
-            <TabList>
+            <TabList mb={4}>
               {tabTitles.map(t => (
                 <Tab>{t}</Tab>
               ))}
             </TabList>
             <TabPanels>
-              <TabPanel>{events.map(e => CalendarEvent(e))}</TabPanel>
-              <TabPanel>
-                {events
-                  .filter(e => e.tag === 'Lecture')
-                  .map(e => CalendarEvent(e))}
-              </TabPanel>
-              <TabPanel>
-                {events
-                  .filter(e => e.tag === 'Tutorial')
-                  .map(e => CalendarEvent(e))}
-              </TabPanel>
-              <TabPanel>
-                {events
-                  .filter(e => e.tag === 'Exam')
-                  .map(e => CalendarEvent(e))}
-              </TabPanel>
-              <TabPanel>
-                {events
-                  .filter(e => e.tag === 'Deadline')
-                  .map(e => CalendarEvent(e))}
-              </TabPanel>
+              {tabTitles.map(t => makeTabPanel(t))}
             </TabPanels>
           </Tabs>
           <Spacer />
