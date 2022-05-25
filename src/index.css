@@ -1,0 +1,9 @@
+.fade-hover-card {
+    background-color: transparent;
+    transition: background-color 0.1s linear;
+    cursor: pointer;
+}
+
+.fade-hover-card:hover {
+    background-color: #F0F0FA;
+}
