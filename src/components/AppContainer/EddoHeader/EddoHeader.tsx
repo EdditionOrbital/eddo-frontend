@@ -1,8 +1,9 @@
-import { Burger, Group, Header, MediaQuery } from "@mantine/core"
+import { ActionIcon, Burger, Group, Header, MediaQuery } from "@mantine/core"
 import Logo from "../../Logo/Logo"
 import SiteNavigationButtons from "../SiteNavigationButtons/SiteNavigationButtons"
+import { MdLogout } from 'react-icons/md'
 
-const EddoHeader = ({opened, toggle}: {opened: boolean, toggle: () => void}) => {
+const EddoHeader = ({opened, toggle, logout}: {opened: boolean, toggle: () => void, logout: () => void}) => {
 
     return (
         <Header height={84} p='xl'>
@@ -11,6 +12,9 @@ const EddoHeader = ({opened, toggle}: {opened: boolean, toggle: () => void}) => 
                 <MediaQuery smallerThan='sm' styles={{display: 'none'}}>
                     <Group>
                         <SiteNavigationButtons smallScreen={false}/>
+                        <ActionIcon onClick={logout} color='red' variant='light'>
+                            <MdLogout/>
+                        </ActionIcon>
                     </Group>
                 </MediaQuery>
                 <MediaQuery largerThan='sm' styles={{display: 'none'}}>
