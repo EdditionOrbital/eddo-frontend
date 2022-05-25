@@ -1,13 +1,15 @@
 import { Stack, Title } from "@mantine/core"
+import { useState } from "react"
+import TaskModal from "../../../components/TaskModal/TaskModal"
 import TaskItem from "./TaskItem/TaskItem"
 
 const tasks = [
-    {title:"Learn How to Lucid Dream"},
-    {title:"Learn How to Dragon Boat"},
-    {title:"Get CPR Certified"},
-    {title:"Complete a Management Course"},
-    {title:"Read all Charles Dickens Novels"},
-    {title:"Learn to Live in the Now"},
+    {title:"Learn How to Lucid Dream", status: 'Completed'},
+    {title:"Learn How to Dragon Boat", status: 'In Progress'},
+    {title:"Get CPR Certified", status: 'In Progress'},
+    {title:"Complete a Management Course", status: 'In Progress'},
+    {title:"Read all Charles Dickens Novels", status: 'In Progress'},
+    {title:"Learn to Live in the Now", status: 'In Progress'},
     // {title:"Learn to Fly a Plane"},
     // {title:"Learn How to Drive"},
     // {title:"Give a Commencement Speech"},
@@ -18,14 +20,19 @@ const tasks = [
 
 const TaskList = () => {
 
+    const [shownTask, setShownTask] = useState<{title: string, status: string} | null>(null)
+
     return (
-        <Stack>
-            <Title order={2}>Your Tasks</Title>
+        <>
+            <TaskModal task={shownTask} close={() => setShownTask(null)}/>
             <Stack>
-                {tasks.map(t => <TaskItem task={t}/>)}
+                <Title order={2}>Your Tasks</Title>
+                <Stack>
+                    {tasks.map(t => <TaskItem onClick={() => setShownTask(t)} task={t}/>)}
+                </Stack>
+                {/* <Button variant='outline' style={{width:150}}>View all tasks</Button> */}
             </Stack>
-            {/* <Button variant='outline' style={{width:150}}>View all tasks</Button> */}
-        </Stack>
+        </>
     )
 
 }
