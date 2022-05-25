@@ -1,5 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
 import { MantineProvider, MantineThemeOverride } from '@mantine/core';
+import { ModalsProvider } from '@mantine/modals';
 import { NotificationsProvider } from '@mantine/notifications';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -25,9 +26,11 @@ root.render(
     <ApolloProvider client={apolloClient}>
       <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
         <NotificationsProvider>
-          <BrowserRouter>
-            <App/>
-          </BrowserRouter>
+          <ModalsProvider>
+            <BrowserRouter>
+              <App/>
+            </BrowserRouter>
+          </ModalsProvider>
         </NotificationsProvider>
       </MantineProvider>
     </ApolloProvider>
