@@ -1,7 +1,7 @@
 import { ActionIcon, Burger, Group, Header, MediaQuery } from "@mantine/core"
-import Logo from "../../Logo/Logo"
-import SiteNavigationButtons from "../SiteNavigationButtons/SiteNavigationButtons"
+import Logo from "../../misc/Logo/Logo"
 import { MdLogout } from 'react-icons/md'
+import SiteNavigationButtons from "../SiteNavigationButtons/SiteNavigationButtons"
 
 const EddoHeader = ({opened, toggle, logout}: {opened: boolean, toggle: () => void, logout: () => void}) => {
 

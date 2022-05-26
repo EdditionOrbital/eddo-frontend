@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client"
 import { Button, Container, Group, SimpleGrid, Space, Stack, Title } from "@mantine/core"
 import { useEffect, useState } from "react"
-import { CURRENT_USER_MODULES } from "../../queries/CurrentUserModules"
-import { currentSem, currentYear } from "../../services/currentYearSemester"
-import AllModuleItem from "./AllModuleItem/AllModuleItem"
+import { CURRENT_USER_MODULES } from "../../queries/modules"
+import { currentSem, currentYear } from "../../utils/currentYearSemester"
+import AllModuleItem from "../../components/modules/AllModuleItem/AllModuleItem"
 
 const categories = ['Enrolled', 'All', 'Coursera', 'Other']
 

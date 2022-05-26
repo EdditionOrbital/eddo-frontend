@@ -1,6 +1,6 @@
 import { Divider, Stack, Title } from "@mantine/core"
 import { Calendar } from "@mantine/dates"
-import CalendarList from "./CalendarList/CalendarList"
+import CalendarList from "../CalendarList/CalendarList"
 
 const CalendarView = () => {
     return (

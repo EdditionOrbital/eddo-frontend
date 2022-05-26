@@ -1,5 +1,5 @@
 import { Card, Stack, Text, Title } from "@mantine/core"
-import { currentSem, currentYear } from "../../../services/currentYearSemester"
+import { currentSem, currentYear } from "../../../utils/currentYearSemester"
 
 const AllModuleItem = ({module} : {module : {code: string, title: string, year: number, semester: number}}) => {
 

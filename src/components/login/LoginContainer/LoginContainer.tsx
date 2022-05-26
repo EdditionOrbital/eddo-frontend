@@ -1,8 +1,8 @@
 import { Anchor, Center, Space, Stack, Text } from "@mantine/core"
 import { useState } from "react"
-import Logo from "../../../components/Logo/Logo"
-import LoginForm from "./LoginForm/LoginForm"
-import RegisterForm from "./RegisterForm/RegisterForm"
+import Logo from "../../misc/Logo/Logo"
+import LoginForm from "../LoginForm/LoginForm"
+import RegisterForm from "../RegisterForm/RegisterForm"
 
 
 const LoginContainer = () => {

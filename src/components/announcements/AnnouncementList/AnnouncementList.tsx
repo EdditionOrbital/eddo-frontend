@@ -1,5 +1,5 @@
 import { Stack, Title } from "@mantine/core"
-import AnnouncementItem from "./AnnouncementItem/AnnouncementItem"
+import AnnouncementItem from "../AnnouncementItem/AnnouncementItem"
 
 const announcements = [
     {

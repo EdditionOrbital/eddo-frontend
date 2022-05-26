@@ -1,6 +1,6 @@
 import { Center, Container, Group, Image, MediaQuery } from "@mantine/core"
-import LoginBackground from './login-background.svg'
-import LoginContainer from "./LoginContainer/LoginContainer"
+import LoginBackground from '../../assets/login-background.svg'
+import LoginContainer from "../../components/login/LoginContainer/LoginContainer"
 
 const LoginPage = () => {
     return (
