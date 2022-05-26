@@ -1,8 +1,8 @@
 import { Container, SimpleGrid, Stack } from "@mantine/core"
-import AnnouncementList from "./AnnouncementList/AnnouncementList"
-import CalendarView from "./CalendarView/CalendarView"
-import HomeWelcome from "./HomeWelcome/HomeWelcome"
-import TaskList from "./TaskList/TaskList"
+import AnnouncementList from "../../components/announcements/AnnouncementList/AnnouncementList"
+import CalendarView from "../../components/calendars/CalendarView/CalendarView"
+import HomeWelcome from "../../components/misc/HomeWelcome/HomeWelcome"
+import TaskList from "../../components/tasks/TaskList/TaskList"
 
 const HomePage = ({user} : {user: {firstName: string, lastName: string} | undefined}) => {
     return (

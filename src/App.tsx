@@ -1,12 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import AppContainer from "./components/AppContainer/AppContainer";
-import AllModulesPage from "./pages/AllModulesPage/AllModulesPage";
+import AppContainer from "./components/navigation/AppContainer/AppContainer";
+import AllModulesPage from "./pages/ModulesPage/ModulesPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
-import { CURRENT_USER } from "./queries/CurrentUser";
 import { AUTH_TOKEN } from "./utils/constants";
+import { CURRENT_USER } from "./queries/currentUser";
 
 function App() {
 
