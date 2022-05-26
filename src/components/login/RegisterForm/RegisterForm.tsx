@@ -68,7 +68,6 @@ const RegisterForm = () => {
             </Stepper.Step>
             <Stepper.Step label="Finish" allowStepSelect={active > 2}>
                 <Stack>
-                    <Space/>
                     <Select size="md" key='MatricSelect' label="Matriculation Year" placeholder="Year" data={['2018', '2019', '2020', '2021']} {...form.getInputProps('year')}/>
                     <Space/>
                     <Button size="md" onClick={handleSubmit}>Register</Button>
