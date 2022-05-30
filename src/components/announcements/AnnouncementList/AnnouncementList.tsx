@@ -1,39 +1,31 @@
-import { Stack, Title } from "@mantine/core"
-import AnnouncementItem from "../AnnouncementItem/AnnouncementItem"
-
-const announcements = [
-    {
-        title: 'Announcement 1',
-        author: 'Prof. John Doe',
-        code: 'CS2100',
-        date: 'Today'
-    },
-    {
-        title: 'Announcement 2',
-        author: 'Prof. Jane Doe',
-        code: 'CS2040S',
-        date: 'Yesterday'
-    },
-    {
-        title: 'Announcement 3',
-        author: 'Prof. John Doe',
-        code: 'MA2001',
-        date: '2 Days Ago'
-    },
-]
+import { useQuery } from '@apollo/client';
+import { Stack, Title } from '@mantine/core';
+import { CURRENT_USER_ANNOUNCEMENTS } from '../../../queries/announcement';
+import AnnouncementItem from '../AnnouncementItem/AnnouncementItem';
 
 const AnnouncementList = () => {
+  var announcements = [];
 
-    return (
-        <Stack>
-            <Title order={2}>Announcements</Title>
-            <Stack>
-                {announcements.map(a => <AnnouncementItem announcement={a}/>)}
-            </Stack>
-            {/* <Button variant='outline' style={{width:150}}>View all tasks</Button> */}
-        </Stack>
-    )
+  const { loading, error, data } = useQuery(CURRENT_USER_ANNOUNCEMENTS);
+  if (loading) {
+  } else if (error) {
+    console.log(error);
+  } else
+    try {
+      announcements = data.currentUserAnnouncements;
+    } catch {}
 
-}
+  return (
+    <Stack>
+      <Title order={2}>Announcements</Title>
+      <Stack>
+        {announcements.map((a: { title: string; author: string; code: string; date: string; }) => (
+          <AnnouncementItem announcement={a} />
+        ))}
+      </Stack>
+      {/* <Button variant='outline' style={{width:150}}>View all tasks</Button> */}
+    </Stack>
+  );
+};
 
-export default AnnouncementList
+export default AnnouncementList;
