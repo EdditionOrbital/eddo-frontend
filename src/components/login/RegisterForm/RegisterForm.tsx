@@ -3,7 +3,7 @@ import { Button, Group, PasswordInput, Select, Space, Stack, Stepper, TextInput 
 import { useForm } from "@mantine/hooks"
 import { showNotification } from "@mantine/notifications"
 import { useState } from "react"
-import { REGISTER_MUTATION } from "../../../queries/login"
+import { STAFF_REGISTER_MUTATION, STUDENT_REGISTER_MUTATION } from "../../../queries/login"
 import { AUTH_TOKEN } from "../../../utils/constants"
 
 const RegisterForm = () => {
@@ -15,38 +15,61 @@ const RegisterForm = () => {
 
     const form = useForm({
         initialValues: {
+            role: 'Student',
             firstName: '',
             lastName: '',
             matricNo: '',
             email: '',
             password: '',
-            year: ''
+            yearOrTitle: ''
         }
     })
 
-    const [startRegister] = useMutation(REGISTER_MUTATION, {
+    const [startRegisterStudent] = useMutation(STUDENT_REGISTER_MUTATION, {
         variables: {
             id: form.values.matricNo,
             firstName: form.values.firstName,
             lastName: form.values.lastName,
             email: form.values.email,
             password: form.values.password,
-            mYear: parseInt(form.values.year)
+            mYear: parseInt(form.values.yearOrTitle)
         },
-        onCompleted: ({ register }) => {
-            if (register.token) {
-                localStorage.setItem(AUTH_TOKEN, register.token)
+        onCompleted: ({ registerStudent }) => {
+            if (registerStudent.token) {
+                localStorage.setItem(AUTH_TOKEN, registerStudent.token)
                 window.location.reload()
             } else {
                 showNotification({
-                    title: 'Register Failed',
-                    message: register.error
+                    title: 'Student Register Failed',
+                    message: registerStudent.error
                 })
             }
         }
     })
 
-    const handleSubmit = () => startRegister()
+    const [startRegisterStaff] = useMutation(STAFF_REGISTER_MUTATION, {
+        variables: {
+            id: form.values.matricNo,
+            firstName: form.values.firstName,
+            lastName: form.values.lastName,
+            email: form.values.email,
+            password: form.values.password,
+            title: form.values.yearOrTitle
+        },
+        onCompleted: ({ registerStaff }) => {
+            if (registerStaff.token) {
+                localStorage.setItem(AUTH_TOKEN, registerStaff.token)
+                window.location.reload()
+            } else {
+                showNotification({
+                    title: 'Staff Register Failed',
+                    message: registerStaff.error
+                })
+            }
+        }
+    })
+
+    const handleSubmit = () => form.values.role === 'Student' ? startRegisterStudent() : startRegisterStaff()
 
     return (
         <>
@@ -54,6 +77,7 @@ const RegisterForm = () => {
             <Stepper.Step label="Name" allowStepSelect={active > 0}>
                 <Stack>
                     <Space/>
+                    <Select size="md" key="Role" label="Register as" data={['Student', 'Staff']} {...form.getInputProps('role')}/>
                     <TextInput key='FirstNameInput' placeholder="eg. John" label="First Name" size='md' required {...form.getInputProps('firstName')}/>
                     <TextInput key='LastNameInput' placeholder="eg. Doe" label="Last Name" size='md' required {...form.getInputProps('lastName')}/>
                 </Stack>
@@ -68,7 +92,12 @@ const RegisterForm = () => {
             </Stepper.Step>
             <Stepper.Step label="Finish" allowStepSelect={active > 2}>
                 <Stack>
-                    <Select size="md" key='MatricSelect' label="Matriculation Year" placeholder="Year" data={['2018', '2019', '2020', '2021']} {...form.getInputProps('year')}/>
+                    {
+                        form.values.role === 'Student' ? 
+                            <Select size="md" key='MatricSelect' label="Matriculation Year" placeholder="Year" data={['2018', '2019', '2020', '2021']} {...form.getInputProps('yearOrTitle')}/> :
+                            <Select size="md" key='TitleSelect' label="Staff Title" placeholder="Title" data={['AProf', 'Prof', 'Dr', 'Mr', 'Ms']} {...form.getInputProps('yearOrTitle')}/>
+                    }
+                    
                     <Space/>
                     <Button size="md" onClick={handleSubmit}>Register</Button>
                 </Stack>
