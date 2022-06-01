@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { AUTH_TOKEN } from "./utils/constants";
 import { CURRENT_USER } from "./queries/currentUser";
+import SettingsPage from "./pages/SettingsPage/SettingsPage";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage {...props}/>}/>
         <Route path="modules" element={<AllModulesPage/>}/>
+        <Route path="settings" element={<SettingsPage {...props}/>}/>
       </Routes>
     </AppContainer>
   )
