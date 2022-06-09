@@ -23,8 +23,8 @@ const LoginForm = () => {
             password: form.values.password
         },
         onCompleted: ({ login }) => {
-            if (login.token) {
-                localStorage.setItem(AUTH_TOKEN, login.token)
+            if (login.response) {
+                localStorage.setItem(AUTH_TOKEN, login.response)
                 window.location.reload()
             } else {
                 setLoading(false)

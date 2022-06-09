@@ -14,7 +14,7 @@ export const CURRENT_USER_TASKS = gql`
 export const NEW_TASK = gql`
     mutation NewTask($title: String, $status: String) {
         newTask(title: $title, status: $status) {
-			completed
+			response
 			error
 		}
     }
@@ -23,7 +23,7 @@ export const NEW_TASK = gql`
 export const UPDATE_TASK = gql`
     mutation UpdateTask($_id: ID!, $title: String, $status: String) {
         updateTask(_id: $_id, title: $title, status: $status) {
-            completed
+            response
             error
         }
     }
@@ -32,7 +32,7 @@ export const UPDATE_TASK = gql`
 export const DELETE_TASK = gql`
     mutation DeleteTask($_id: ID!) {
         deleteTask(_id: $_id) {
-            completed
+            response
             error
         }
     }

@@ -35,8 +35,8 @@ const RegisterForm = () => {
             mYear: parseInt(form.values.yearOrTitle)
         },
         onCompleted: ({ registerStudent }) => {
-            if (registerStudent.token) {
-                localStorage.setItem(AUTH_TOKEN, registerStudent.token)
+            if (registerStudent.response) {
+                localStorage.setItem(AUTH_TOKEN, registerStudent.response)
                 window.location.reload()
             } else {
                 showNotification({
@@ -57,8 +57,8 @@ const RegisterForm = () => {
             title: form.values.yearOrTitle
         },
         onCompleted: ({ registerStaff }) => {
-            if (registerStaff.token) {
-                localStorage.setItem(AUTH_TOKEN, registerStaff.token)
+            if (registerStaff.response) {
+                localStorage.setItem(AUTH_TOKEN, registerStaff.response)
                 window.location.reload()
             } else {
                 showNotification({

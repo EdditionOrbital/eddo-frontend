@@ -39,9 +39,9 @@ const TaskModal = ({task, close, callbacks} : { task: Task | null, close: () => 
 			status: formState.status
 		},
 		onCompleted: ({ newTask }) => {
-			if (newTask.completed) {
+			if (newTask.response) {
 				const task = {
-					_id: newTask.completed,
+					_id: newTask.response,
 					...formState
 				}
 				callbacks.add(task)
@@ -56,9 +56,9 @@ const TaskModal = ({task, close, callbacks} : { task: Task | null, close: () => 
 			...formState
 		},
 		onCompleted: ({ updateTask }) => {
-			if (updateTask.completed) {
+			if (updateTask.response) {
 				const task = {
-					_id: updateTask.completed,
+					_id: updateTask.response,
 					...formState
 				}
 				callbacks.update(task)
@@ -70,7 +70,7 @@ const TaskModal = ({task, close, callbacks} : { task: Task | null, close: () => 
 	const [deleteTask] = useMutation(DELETE_TASK, {
 		variables: { _id: task?._id },
 		onCompleted: ({ deleteTask }) => {
-			if (deleteTask.completed) {
+			if (deleteTask.response) {
 				const id = task?._id || ''
 				callbacks.delete(id)
 			} else console.log(deleteTask.error)
