@@ -4,7 +4,7 @@ import { useForm } from "@mantine/form"
 import { useEffect, useState } from "react"
 import { User } from "../../types/user.type"
 
-const SettingsPage = ({user} : { user : User | undefined } ) => {
+const SettingsPage = ({user} : { user : User | null | undefined } ) => {
 
     const form = useForm({
         initialValues: {
