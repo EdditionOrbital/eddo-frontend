@@ -40,7 +40,7 @@ const TaskList = () => {
                     <ActionIcon variant="light" onClick={() => setShownTask(emptyTask)}><FaPlus/></ActionIcon>
                 </Group>
                 <Stack>
-                    { tasks.length > 0 ? tasks.map(t => <TaskItem onClick={() => setShownTask(t)} task={t}/>) : <Text>You have no pending tasks.</Text>}
+                    { tasks.length > 0 ? tasks.map(t => <TaskItem key={t._id} onClick={() => setShownTask(t)} task={t}/>) : <Text>You have no pending tasks.</Text>}
 
                 </Stack>
                 {/* <Button variant='outline' style={{width:150}}>View all tasks</Button> */}

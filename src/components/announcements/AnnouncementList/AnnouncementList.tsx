@@ -20,7 +20,7 @@ const AnnouncementList = () => {
       <Title order={2}>Announcements</Title>
       <Stack>
         {announcements.map((a: { title: string; author: string; code: string; date: string; }) => (
-          <AnnouncementItem announcement={a} />
+          <AnnouncementItem key={a.code} announcement={a} />
         ))}
       </Stack>
       {/* <Button variant='outline' style={{width:150}}>View all tasks</Button> */}
