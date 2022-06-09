@@ -8,10 +8,12 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import { AUTH_TOKEN } from "./utils/constants";
 import { CURRENT_USER } from "./queries/currentUser";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
+import { User } from "./types/user.type";
+import InitPage from "./pages/InitPage/InitPage";
 
 function App() {
 
-  const [user, setUser] = useState(undefined)
+  const [user, setUser] = useState<{user: User | null, dbInitialised: boolean} | undefined>(undefined)
   const {loading, error, data} = useQuery(CURRENT_USER)
 
   const logOut = () => {
@@ -20,11 +22,20 @@ function App() {
     window.location.reload()
   }
 
+  useEffect(() => {
+    if (data === undefined) return
+    else setUser(data.currentUser)
+  }, [loading, error, data])
+
+  if (user === undefined) return <></>
+  if (user.dbInitialised === false) return <InitPage/>
+  if (user.user === null) return <LoginPage/>
+
   const props = {
-    user: user
+    user: user.user
   }
 
-  const routes = (
+  return (
     <AppContainer logout={logOut}>
       <Routes>
         <Route path="/" element={<HomePage {...props}/>}/>
@@ -34,15 +45,6 @@ function App() {
     </AppContainer>
   )
 
-  useEffect(() => {
-    if (loading) console.log('Loading data...')
-    else if (error) console.log(error)
-    else setUser(data.currentUser)
-  }, [loading, error, data])
-
-  return (
-    user === undefined ? <></> : user === null ? <LoginPage/> : routes
-  );
 }
 
 export default App;
