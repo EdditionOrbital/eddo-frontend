@@ -1,4 +1,5 @@
 export interface User {
+	__typename: string,
     _id: string,
 	id: string,
     firstName: string,
