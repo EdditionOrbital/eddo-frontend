@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import { Button, Center, PasswordInput, Space, Stack, Text, TextInput, Title } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import Logo from "../../components/misc/Logo/Logo";
-import { ADMIN_REGISTER_MUTATION } from "../../queries/login";
+import { ADMIN_REGISTER_MUTATION } from "../../queries/Login";
 import { AUTH_TOKEN } from "../../utils/constants";
 
 export default function InitPage() {

@@ -1,18 +1,18 @@
 import { useQuery } from '@apollo/client';
 import { Stack, Title } from '@mantine/core';
-import { CURRENT_USER_ANNOUNCEMENTS } from '../../../queries/announcement';
+import { CONTEXT_ANNOUNCEMENTS } from '../../../queries/announcement';
 import AnnouncementItem from '../AnnouncementItem/AnnouncementItem';
 
 const AnnouncementList = () => {
   var announcements = [];
 
-  const { loading, error, data } = useQuery(CURRENT_USER_ANNOUNCEMENTS);
+  const { loading, error, data } = useQuery(CONTEXT_ANNOUNCEMENTS);
   if (loading) {
   } else if (error) {
     console.log(error);
   } else
     try {
-      announcements = data.currentUserAnnouncements;
+      announcements = data.contextAnnouncements;
     } catch {}
 
   return (

@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const CURRENT_USER_TASKS = gql`
-    query CurrentUserTasks {
-        currentUserTasks {
+export const CONTEXT_TASKS = gql`
+    query ContextTasks {
+        contextTasks {
             _id
             title
             status
@@ -11,9 +11,9 @@ export const CURRENT_USER_TASKS = gql`
     }
 `
 
-export const NEW_TASK = gql`
-    mutation NewTask($title: String, $status: String) {
-        newTask(title: $title, status: $status) {
+export const CREATE_TASK = gql`
+    mutation CreateTask($title: String, $status: String) {
+        createTask(title: $title, status: $status) {
 			response
 			error
 		}

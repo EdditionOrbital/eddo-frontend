@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client"
 import { ActionIcon, Button, Group, Modal, SegmentedControl, Space, Stack, TextInput } from "@mantine/core"
 import { useEffect, useState } from "react"
-import { DELETE_TASK, NEW_TASK, UPDATE_TASK } from "../../../queries/tasks"
+import { DELETE_TASK, CREATE_TASK, UPDATE_TASK } from "../../../queries/tasks"
 import { AiOutlineDelete } from 'react-icons/ai'
 import { Task } from "../../../types/task.type"
 import { EddoCallback } from "../../../types/callbacks.type"
@@ -33,7 +33,7 @@ const TaskModal = ({task, close, callbacks} : { task: Task | null, close: () => 
 	const modalTitle = formState.title === '' ? task?._id === null ? 'New Task' : task?.title : formState.title
 	const notChanged = formState.title === task?.title && formState.status === task?.status
 
-	const [addNewTask] = useMutation(NEW_TASK, {
+	const [addNewTask] = useMutation(CREATE_TASK, {
 		variables: {
 			title: formState.title,
 			status: formState.status
