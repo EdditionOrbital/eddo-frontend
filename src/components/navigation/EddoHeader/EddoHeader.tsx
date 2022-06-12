@@ -5,7 +5,7 @@ import { Menu2 } from "tabler-icons-react"
 const EddoHeader = ({toggle}: {toggle: () => void}) => {
     return (
         <MediaQuery largerThan='sm' styles={{display:'none'}}>
-            <Header height={72} p='md'>
+            <Header height={60} p='md'>
                 <Group position="apart">
                     <Logo height={30}/>
                     <ActionIcon onClick={toggle}>

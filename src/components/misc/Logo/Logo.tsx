@@ -1,9 +1,15 @@
-import { Image } from "@mantine/core"
+import { Group, Image, MediaQuery, Title } from "@mantine/core"
 import LogoFull from './eddo-logo-full.svg'
+import LogoPartial from './eddo-logo.svg'
 
 const Logo = ({height} : {height: number}) => {
     return (
-        <Image height={height} width={height * 4.125} fit='contain' src={LogoFull}/>
+        <Group position='left' spacing='xs'>
+            <Image height={height} width={height} style={{margin:0}} fit='contain' src={LogoPartial}/>
+            <MediaQuery smallerThan='sm' styles={{display: 'none'}}>
+                <Title order={2}>eddo</Title>
+            </MediaQuery>
+        </Group>
     )
 }
 
