@@ -3,7 +3,7 @@ import { Button, Group, PasswordInput, Select, Space, Stack, Stepper, TextInput 
 import { useForm } from "@mantine/hooks"
 import { showNotification } from "@mantine/notifications"
 import { useState } from "react"
-import { STAFF_REGISTER_MUTATION, STUDENT_REGISTER_MUTATION } from "../../../queries/Login"
+import { STAFF_REGISTER_MUTATION, STUDENT_REGISTER_MUTATION } from "../../../queries/auth"
 import { AUTH_TOKEN } from "../../../utils/constants"
 
 const RegisterForm = () => {

@@ -3,7 +3,7 @@ import { Button, PasswordInput, Space, Stack, TextInput } from "@mantine/core"
 import { useForm } from "@mantine/form"
 import { showNotification } from "@mantine/notifications"
 import { useState } from "react"
-import { LOGIN_MUTATION } from "../../../queries/Login"
+import { LOGIN_MUTATION } from "../../../queries/auth"
 import { AUTH_TOKEN } from "../../../utils/constants"
 
 const LoginForm = () => {
