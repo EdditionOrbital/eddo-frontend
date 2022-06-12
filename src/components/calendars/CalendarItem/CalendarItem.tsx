@@ -1,6 +1,7 @@
 import { Badge, Card, Group, Stack, Text, Title } from "@mantine/core"
+import { Lesson } from "../../../types/lesson.type"
 
-const CalendarItem = ({event} : {event : {code: string, moduleId: string, lessonType: string, startTime: string, endTime: string}}) => {
+const CalendarItem = ({event} : {event : Lesson}) => {
 
     return (
         <Card withBorder className="fade-hover-card">

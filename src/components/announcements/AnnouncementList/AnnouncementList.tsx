@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Stack, Title } from '@mantine/core';
 import { CONTEXT_ANNOUNCEMENTS } from '../../../queries/announcement';
+import { Announcement } from '../../../types/announcement.type';
 import AnnouncementItem from '../AnnouncementItem/AnnouncementItem';
 
 const AnnouncementList = () => {
@@ -19,11 +20,10 @@ const AnnouncementList = () => {
     <Stack>
       <Title order={2}>Announcements</Title>
       <Stack>
-        {announcements.map((a: { title: string; author: string; code: string; date: string; }) => (
-          <AnnouncementItem key={a.code} announcement={a} />
+        {announcements.map((a: Announcement) => (
+          <AnnouncementItem key={a.moduleId} announcement={a} />
         ))}
       </Stack>
-      {/* <Button variant='outline' style={{width:150}}>View all tasks</Button> */}
     </Stack>
   );
 };

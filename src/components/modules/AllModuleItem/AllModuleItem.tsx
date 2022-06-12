@@ -1,7 +1,8 @@
 import { Card, Stack, Text, Title } from "@mantine/core"
+import { Module } from "../../../types/module.type"
 import { currentSem, currentYear } from "../../../utils/currentYearSemester"
 
-const AllModuleItem = ({module} : {module : {code: string, title: string, year: number, semester: number}}) => {
+const AllModuleItem = ({module} : {module : Module}) => {
 
     const isCurrentSemMod = module.year === currentYear && module.semester === currentSem
 

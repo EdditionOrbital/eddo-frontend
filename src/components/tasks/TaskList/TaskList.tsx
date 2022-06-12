@@ -43,7 +43,6 @@ const TaskList = () => {
                     { tasks.length > 0 ? tasks.map(t => <TaskItem key={t._id} onClick={() => setShownTask(t)} task={t}/>) : <Text>You have no pending tasks.</Text>}
 
                 </Stack>
-                {/* <Button variant='outline' style={{width:150}}>View all tasks</Button> */}
             </Stack>
         </>
     )

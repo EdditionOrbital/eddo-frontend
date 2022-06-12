@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { CONTEXT_MODULES } from "../../queries/modules"
 import { currentSem, currentYear } from "../../utils/currentYearSemester"
 import AllModuleItem from "../../components/modules/AllModuleItem/AllModuleItem"
+import { Module } from "../../types/module.type"
 
 const categories = ['Enrolled', 'All', 'Coursera', 'Other']
 
@@ -12,6 +13,7 @@ const AllModulesPage = () => {
     const [category, setCategory] = useState(categories[0])
     const buttons = categories.map(c => 
         <Button 
+        key={c}
         variant={category === c ? 'filled' : 'light'}
         onClick={() => setCategory(c)} 
         >
@@ -23,20 +25,21 @@ const AllModulesPage = () => {
     const {loading, error, data} = useQuery(CONTEXT_MODULES)
 
     useEffect(() => {
-        var res = []
-        if (loading) {}
+        var newFilteredModules = []
+        if (loading) return
         else if (error) console.log(error)
-        else try { res = data.eddoAppContext } catch {}
+        else try { newFilteredModules = data.contextModules } catch {}
+        if (!newFilteredModules) return
         switch (category) {
             case categories[0]:
-                res = res.filter((m : {year: number, semester: number}) => m.year === currentYear && m.semester === currentSem)
+                newFilteredModules = newFilteredModules.filter((m : Module) => m.year === currentYear && m.semester === currentSem)
                 break
             default:
                 break
         }
-        res = res.slice().sort((a: {semester: number}, b: {semester: number}) => b.semester - a.semester)
-        res = res.slice().sort((a: {year: number}, b: {year: number}) => b.year - a.year)
-        setFilteredModules(res)
+        newFilteredModules = newFilteredModules.slice().sort((a: Module, b: Module) => b.semester - a.semester)
+        newFilteredModules = newFilteredModules.slice().sort((a: Module, b: Module) => b.year - a.year)
+        setFilteredModules(newFilteredModules)
     }, [loading, error, data, category])
 
     return (
@@ -48,7 +51,7 @@ const AllModulesPage = () => {
                     {buttons}
                 </Group>
                 <SimpleGrid cols={1} breakpoints={[{minWidth: 'sm', cols: 2}, {minWidth: 'md', cols: 3}, {minWidth: 'lg', cols: 4}]}>
-                    {filteredModules.map(m => <AllModuleItem module={m}/>)}
+                    {filteredModules.map((m: Module) => <AllModuleItem key={m.code} module={m}/>)}
                 </SimpleGrid>
             </Stack>
         </Container>
