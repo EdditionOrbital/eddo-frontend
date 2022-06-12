@@ -1,31 +1,22 @@
-import { Button, Group, Stack } from "@mantine/core"
+import { useQuery } from "@apollo/client"
+import { Button, Group, Stack, Text } from "@mantine/core"
 import { useState } from "react"
+import { CURRENT_USER_LESSONS } from "../../../queries/lessons"
 import CalendarItem from "./CalendarItem/CalendarItem"
 
 const lessonTypes = ['All', 'Lecture', 'Tutorial']
-
-const events = [
-    {
-        code: 'CS2100',
-        lessonType: 'Lecture',
-        startTime: '12:00',
-        endTime: '13:00'
-    },
-    {
-        code: 'CS2040S',
-        lessonType: 'Lecture',
-        startTime: '14:00',
-        endTime: '15:00'
-    },
-    {
-        code: 'MA2001',
-        lessonType: 'Tutorial',
-        startTime: '16:00',
-        endTime: '18:00'
-    },
-]
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 
 const CalendarList = () => {
+    const today = new Date();
+    const day = today.getDay();
+
+    var events = []
+    const {loading, error, data} = useQuery(CURRENT_USER_LESSONS)
+
+    if (loading) {}
+    else if (error) console.log(error)
+    else try { events = data.currentUserLessons } catch {}
 
     const [type, setType] = useState(lessonTypes[0])
 
@@ -35,7 +26,7 @@ const CalendarList = () => {
                 {lessonTypes.map(t => <Button variant={t === type ? 'filled' : 'light'} onClick={() => setType(t)} compact>{t}</Button>)}
             </Group>
             <Stack>
-                {events.filter(e => type === 'All' ? true : type === e.lessonType).map(e => <CalendarItem event={e}/>)}
+                {events.filter((e: { lessonType: string }) => type === 'All' ? true : type === e.lessonType).map(((e: { code: string; moduleId: string; lessonType: string; startTime: string; endTime: string }) => <CalendarItem event={e}/>))}
             </Stack>
         </Stack>
     )
