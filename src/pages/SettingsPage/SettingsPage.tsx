@@ -1,7 +1,5 @@
-import { useQuery } from "@apollo/client"
-import { Button, Container, Group, SimpleGrid, Space, Stack, TextInput, Title } from "@mantine/core"
+import { Button, Container, Space, Stack, TextInput, Title } from "@mantine/core"
 import { useForm } from "@mantine/form"
-import { useEffect, useState } from "react"
 import { User } from "../../types/user.type"
 
 const SettingsPage = ({user} : { user : User | null | undefined } ) => {
