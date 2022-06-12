@@ -1,4 +1,5 @@
 import { Avatar, Group, MediaQuery, Navbar, Stack, Text } from "@mantine/core";
+import { Route, Routes } from "react-router-dom";
 import { Book2, Calendar, Home2, Mail } from "tabler-icons-react";
 import Logo from "../../misc/Logo/Logo";
 import EddoNavbarButton from "../EddoNavbarButton/EddoNavbarButton";
@@ -27,6 +28,18 @@ const routes = [
 ]
 
 export default function EddoNavbar({hidden, logout} : {hidden: boolean, logout: () => void}) {
+
+	const moduleSubpageSidebar = (
+		<Routes>
+			<Route path="/modules" element={(
+				<Navbar.Section p='xs' grow style={{borderTop: '1px solid #ddd'}}>
+					<div>Hello</div>
+				</Navbar.Section>
+			)}/>
+			<Route path="*" element={<></>}/>
+		</Routes>
+	)
+
 	return (
 		<Navbar hiddenBreakpoint='sm' hidden={hidden} width={{base: 300}}>
 			<MediaQuery smallerThan='sm' styles={{display: 'none'}}>
@@ -43,11 +56,12 @@ export default function EddoNavbar({hidden, logout} : {hidden: boolean, logout: 
 					</div>
 				</Group>
 			</Navbar.Section>
-			<Navbar.Section p='xs' grow>
+			<Navbar.Section p='xs'>
 				<Stack spacing={0}>
 					{routes.map(o => <EddoNavbarButton key={o.name} {...o}/>)}
 				</Stack>
 			</Navbar.Section>
+			{moduleSubpageSidebar}
 		</Navbar>
 	)
 }
