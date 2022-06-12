@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client"
-import { Button, Container, Group, SimpleGrid, Space, Stack, Title } from "@mantine/core"
+import { Box, Button, Container, Group, SimpleGrid, Space, Stack, Title } from "@mantine/core"
 import { useEffect, useState } from "react"
 import { CONTEXT_MODULES } from "../../queries/modules"
 import { currentSem, currentYear } from "../../utils/currentYearSemester"
@@ -43,7 +43,7 @@ const AllModulesPage = () => {
     }, [loading, error, data, category])
 
     return (
-        <Container p={24} size={1600}>
+        <Box p={24} style={{ width: '90%', maxWidth: 1500 }}>
             <Stack>
                 <Title order={2}>Your Modules</Title>
                 <Space/>
@@ -54,7 +54,7 @@ const AllModulesPage = () => {
                     {filteredModules.map((m: Module) => <AllModuleItem key={m.code} module={m}/>)}
                 </SimpleGrid>
             </Stack>
-        </Container>
+        </Box>
     )
 
 }
