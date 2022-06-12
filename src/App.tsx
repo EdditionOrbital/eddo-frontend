@@ -6,15 +6,15 @@ import AllModulesPage from "./pages/ModulesPage/ModulesPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { AUTH_TOKEN } from "./utils/constants";
-import { CURRENT_USER } from "./queries/CurrentUser";
+import { APP_CONTEXT } from "./queries/eddoAppContext";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import { User } from "./types/user.type";
-import InitPage from "./pages/InitPage/InitPage";
+import { EddoAppContext } from "./types/eddoAppContext.type";
 
 function App() {
 
-  const [user, setUser] = useState<{user: User | null, dbInitialised: boolean} | undefined>(undefined)
-  const {loading, error, data} = useQuery(CURRENT_USER)
+  const [user, setUser] = useState<EddoAppContext | undefined>(undefined)
+  const {loading, error, data} = useQuery(APP_CONTEXT)
 
   const logOut = () => {
     setUser(undefined)
@@ -28,11 +28,10 @@ function App() {
   }, [loading, error, data])
 
   if (user === undefined) return <></>
-  if (user.dbInitialised === false) return <InitPage/>
-  if (user.user === null) return <LoginPage/>
+  if (user.currentUser === null) return <LoginPage/>
 
   const props = {
-    user: user.user
+    user: user.currentUser
   }
 
   return (
