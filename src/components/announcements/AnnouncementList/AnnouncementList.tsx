@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Stack, Title } from '@mantine/core';
-import { CURRENT_USER_ANNOUNCEMENTS } from '../../../queries/announcements';
+import { CURRENT_USER_ANNOUNCEMENTS } from '../../../queries/announcement';
 import AnnouncementItem from '../AnnouncementItem/AnnouncementItem';
 
 const AnnouncementList = () => {
