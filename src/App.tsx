@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import { APP_CONTEXT } from "./queries/eddoAppContext";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import { EddoAppContext } from "./types/eddoAppContext.type";
+import AnnouncementsPage from "./pages/AnnouncementsPage/AnnouncementsPage";
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
         <Route path="/" element={<HomePage {...props}/>}/>
         <Route path="modules" element={<AllModulesPage/>}/>
         <Route path="settings" element={<SettingsPage {...props}/>}/>
+        <Route path="announcements" element={<AnnouncementsPage/>}/>
       </Routes>
     </AppContainer>
   )
