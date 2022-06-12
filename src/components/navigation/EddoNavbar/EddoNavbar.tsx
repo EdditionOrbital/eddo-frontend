@@ -1,19 +1,34 @@
-import { Avatar, Group, MediaQuery, Navbar, Text } from "@mantine/core";
+import { Avatar, Group, MediaQuery, Navbar, Stack, Text } from "@mantine/core";
+import { Book2, Calendar, Home2, Mail } from "tabler-icons-react";
 import Logo from "../../misc/Logo/Logo";
+import EddoNavbarButton from "../EddoNavbarButton/EddoNavbarButton";
 
 const routes = [
     { 
 		name: "Home", 
+		icon: <Home2/>,
 		url: '/',
 	},
-    { name: "Modules", url: '/modules' },
-    { name: "Email", url: '/' },
-    { name: "Timetable", url: '/' }
+    { 
+		name: "Modules", 
+		url: '/modules',
+		icon: <Book2/>
+	},
+    { 
+		name: "Email", 
+		url: '/' ,
+		icon: <Mail/>
+	},
+    { 
+		name: "Timetable", 
+		url: '/' ,
+		icon: <Calendar/>
+	}
 ]
 
 export default function EddoNavbar({hidden, logout} : {hidden: boolean, logout: () => void}) {
 	return (
-		<Navbar hiddenBreakpoint='sm' hidden={hidden} width={{base: 280}}>
+		<Navbar hiddenBreakpoint='sm' hidden={hidden} width={{base: 300}}>
 			<MediaQuery smallerThan='sm' styles={{display: 'none'}}>
 				<Navbar.Section p='lg' style={{borderBottom: '1px solid #ddd'}}>
 					<Logo height={30}/>
@@ -29,6 +44,9 @@ export default function EddoNavbar({hidden, logout} : {hidden: boolean, logout: 
 				</Group>
 			</Navbar.Section>
 			<Navbar.Section p='xs' grow>
+				<Stack spacing={0}>
+					{routes.map(o => <EddoNavbarButton key={o.name} {...o}/>)}
+				</Stack>
 			</Navbar.Section>
 		</Navbar>
 	)
