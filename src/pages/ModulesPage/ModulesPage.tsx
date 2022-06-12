@@ -50,7 +50,7 @@ const AllModulesPage = () => {
                 <Group spacing='xs'>
                     {buttons}
                 </Group>
-                <SimpleGrid cols={1} breakpoints={[{minWidth: 'sm', cols: 2}, {minWidth: 'md', cols: 3}, {minWidth: 'lg', cols: 4}]}>
+                <SimpleGrid cols={1} breakpoints={[{minWidth: 'sm', cols: 2}, {minWidth: 'md', cols: 3}]}>
                     {filteredModules.map((m: Module) => <AllModuleItem key={m.code} module={m}/>)}
                 </SimpleGrid>
             </Stack>

@@ -7,10 +7,10 @@ import { User } from "../../types/user.type"
 const HomePage = ({user} : {user: User | null | undefined}) => {
     return (
         <Container p={24} size={1600}>
-            <SimpleGrid spacing='xl' breakpoints={[{minWidth: 'sm', cols: 2}, {minWidth: 'lg', cols: 3}]}>
+            <SimpleGrid spacing='xl' breakpoints={[{minWidth: 'sm', cols: 2}, {minWidth: 'lg', cols: 2}]}>
                 <CalendarView/>
                 <TaskList/>
-                <AnnouncementList/>
+                {/* <AnnouncementList/> */}
             </SimpleGrid>
         </Container>
         

@@ -1,43 +1,19 @@
-import { Avatar, Group, MediaQuery, Navbar, Stack, Text } from "@mantine/core";
+import { Avatar, Group, MediaQuery, Navbar, Text } from "@mantine/core";
 import { Route, Routes } from "react-router-dom";
-import { Book2, Calendar, Home2, Mail } from "tabler-icons-react";
 import Logo from "../../misc/Logo/Logo";
-import EddoNavbarButton from "../EddoNavbarButton/EddoNavbarButton";
-
-const routes = [
-    { 
-		name: "Home", 
-		icon: <Home2/>,
-		url: '/',
-	},
-    { 
-		name: "Modules", 
-		url: '/modules',
-		icon: <Book2/>
-	},
-    { 
-		name: "Email", 
-		url: '/' ,
-		icon: <Mail/>
-	},
-    { 
-		name: "Timetable", 
-		url: '/' ,
-		icon: <Calendar/>
-	}
-]
+import MainNavigation from "../MainNavigation/MainNavigation";
+import SubpageNavigation from "../SubpageNavigation/SubpageNavigation";
 
 export default function EddoNavbar({hidden, logout} : {hidden: boolean, logout: () => void}) {
 
-	const moduleSubpageSidebar = (
-		<Routes>
-			<Route path="/modules" element={(
-				<Navbar.Section p='xs' grow style={{borderTop: '1px solid #ddd'}}>
-					<div>Hello</div>
-				</Navbar.Section>
-			)}/>
-			<Route path="*" element={<></>}/>
-		</Routes>
+	const siteNavigation = (
+		<>
+			<MainNavigation/>
+			<Routes>
+				<Route path="/modules/:id/*" element={<SubpageNavigation/>}/>
+				<Route path="*" element={<></>}/>
+			</Routes>
+		</>
 	)
 
 	return (
@@ -49,19 +25,14 @@ export default function EddoNavbar({hidden, logout} : {hidden: boolean, logout: 
 			</MediaQuery>
 			<Navbar.Section p='lg' style={{borderBottom: '1px solid #ddd'}}>
 				<Group>
-					<Avatar color='purple'>A</Avatar>
+					<Avatar color='blue'>A</Avatar>
 					<div>
 						<Text>Ellen</Text>
 						<Text size="xs" style={{opacity: 0.3}}>ellen_sanders@u.nus.edu</Text>
 					</div>
 				</Group>
 			</Navbar.Section>
-			<Navbar.Section p='xs'>
-				<Stack spacing={0}>
-					{routes.map(o => <EddoNavbarButton key={o.name} {...o}/>)}
-				</Stack>
-			</Navbar.Section>
-			{moduleSubpageSidebar}
+			{siteNavigation}
 		</Navbar>
 	)
 }

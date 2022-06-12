@@ -1,13 +1,18 @@
 import { Card, Stack, Text, Title } from "@mantine/core"
+import { useNavigate } from "react-router-dom"
 import { Module } from "../../../types/module.type"
 import { currentSem, currentYear } from "../../../utils/currentYearSemester"
 
 const AllModuleItem = ({module} : {module : Module}) => {
 
     const isCurrentSemMod = module.year === currentYear && module.semester === currentSem
+    const navigate = useNavigate()
+    const handleModuleClick = () => {
+        isCurrentSemMod && navigate(`/modules/${module.id}`)
+    }
 
     return (
-        <Card withBorder className="fade-hover-card" style={{opacity: isCurrentSemMod ? 1 : 0.3}}>
+        <Card onClick={handleModuleClick} withBorder className="fade-hover-card" style={{opacity: isCurrentSemMod ? 1 : 0.3}}>
             <Stack>
                 <Stack spacing={4}>
                     <Text size="md">{module.code}</Text>
