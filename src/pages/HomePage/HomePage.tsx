@@ -1,5 +1,4 @@
-import { Box, Container, SimpleGrid } from "@mantine/core"
-import AnnouncementList from "../../components/announcements/AnnouncementList/AnnouncementList"
+import { Box, SimpleGrid } from "@mantine/core"
 import CalendarView from "../../components/calendars/CalendarView/CalendarView"
 import TaskList from "../../components/tasks/TaskList/TaskList"
 import { User } from "../../types/user.type"
