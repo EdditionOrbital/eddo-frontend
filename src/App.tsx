@@ -8,7 +8,6 @@ import LoginPage from "./pages/LoginPage/LoginPage";
 import { AUTH_TOKEN } from "./utils/constants";
 import { APP_CONTEXT } from "./queries/eddoAppContext";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
-import { User } from "./types/user.type";
 import { EddoAppContext } from "./types/eddoAppContext.type";
 
 function App() {
