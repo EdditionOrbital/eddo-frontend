@@ -4,7 +4,7 @@ import TaskModal from "../TaskModal/TaskModal"
 import TaskItem from "../TaskItem/TaskItem"
 import { FaPlus } from 'react-icons/fa'
 import { useQuery } from "@apollo/client"
-import { CURRENT_USER_TASKS } from "../../../queries/tasks"
+import { CONTEXT_TASKS } from "../../../queries/tasks"
 import { Task } from "../../../types/task.type"
 
 const emptyTask = { _id: null, title: '', status: 'Not Started'}
@@ -13,7 +13,7 @@ const TaskList = () => {
 
     const [tasks, setTasks] = useState<Task[]>([])
     const [shownTask, setShownTask] = useState<Task | null>(null)
-    const {loading, error, data} = useQuery(CURRENT_USER_TASKS)
+    const {loading, error, data} = useQuery(CONTEXT_TASKS)
 
     const addTask = (t: Task) => setTasks([...tasks, t])
     const updateTask = (t: Task) => setTasks(tasks.map(i => t._id === i._id ? t : i))
@@ -23,7 +23,7 @@ const TaskList = () => {
         var res = []
         if (loading) {}
         else if (error) console.log(error)
-        else try { res = data.currentUserTasks } catch {}
+        else try { res = data.contextTasks } catch {}
         setTasks(res)
     }, [loading, error, data])
 

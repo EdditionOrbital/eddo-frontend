@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
-export const CURRENT_USER_MODULES = gql`
-    query CurrentUserModules {
-        currentUserModules {
+export const CONTEXT_MODULES = gql`
+    query ContextModules {
+        contextModules {
             code
             year
             semester

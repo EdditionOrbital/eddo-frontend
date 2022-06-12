@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client"
 
-export const CURRENT_USER_ANNOUNCEMENTS = gql `
-    query CurrentUserAnnouncements {
-        currentUserAnnouncements {
+export const CONTEXT_ANNOUNCEMENTS = gql `
+    query ContextAnnouncements {
+        contextAnnouncements {
             title
             authorId
             moduleId

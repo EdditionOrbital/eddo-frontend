@@ -6,7 +6,7 @@ import AllModulesPage from "./pages/ModulesPage/ModulesPage";
 import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { AUTH_TOKEN } from "./utils/constants";
-import { CURRENT_USER } from "./queries/currentUser";
+import { CURRENT_USER } from "./queries/CurrentUser";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import { User } from "./types/user.type";
 import InitPage from "./pages/InitPage/InitPage";
@@ -24,7 +24,7 @@ function App() {
 
   useEffect(() => {
     if (data === undefined) return
-    else setUser(data.currentUser)
+    else setUser(data.eddoAppContext)
   }, [loading, error, data])
 
   if (user === undefined) return <></>
