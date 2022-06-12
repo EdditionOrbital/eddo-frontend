@@ -6,5 +6,5 @@ export interface Announcement {
     moduleId: string | null,
     date: string | null
     content: string | null
-    author: User | null
+    author: string | null
 }
