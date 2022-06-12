@@ -1,9 +1,10 @@
 import { AppShell } from "@mantine/core"
 import React, { useState } from "react"
+import { User } from "../../../types/user.type"
 import EddoHeader from "../EddoHeader/EddoHeader"
 import EddoNavbar from "../EddoNavbar/EddoNavbar"
 
-const AppContainer = ({logout, children}: {logout: () => void, children: React.ReactNode}) => {
+const AppContainer = ({children, user}: {children: React.ReactNode, user: User}) => {
 
     const [opened, setOpened] = useState(false)
     const toggle = () => setOpened(!opened)
@@ -11,7 +12,7 @@ const AppContainer = ({logout, children}: {logout: () => void, children: React.R
     return (
         <AppShell 
             padding='xl' 
-            navbar={<EddoNavbar hidden={!opened} logout={logout}/>} 
+            navbar={<EddoNavbar user={user} hidden={!opened}/>} 
             header={<EddoHeader toggle={toggle}/>}
         >
             {children}

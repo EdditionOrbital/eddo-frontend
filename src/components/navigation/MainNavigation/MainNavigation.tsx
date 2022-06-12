@@ -1,5 +1,5 @@
 import { Navbar, Stack } from "@mantine/core"
-import { Book2, Calendar, Home2, Mail } from "tabler-icons-react"
+import { Bell, Book2, Calendar, Home2 } from "tabler-icons-react"
 import EddoNavbarButton from "../EddoNavbarButton/EddoNavbarButton"
 
 const routes = [
@@ -14,13 +14,13 @@ const routes = [
 		icon: <Book2/>
 	},
     { 
-		name: "Email", 
-		url: '/' ,
-		icon: <Mail/>
+		name: "Announcements", 
+		url: '/announcements' ,
+		icon: <Bell/>
 	},
     { 
 		name: "Timetable", 
-		url: '/' ,
+		url: '/timetable' ,
 		icon: <Calendar/>
 	}
 ]
