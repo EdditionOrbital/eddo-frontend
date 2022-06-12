@@ -1,95 +1,60 @@
 import { useMutation } from "@apollo/client"
 import { ActionIcon, Button, Group, Modal, SegmentedControl, Space, Stack, TextInput } from "@mantine/core"
-import { useEffect, useState } from "react"
 import { DELETE_TASK, CREATE_TASK, UPDATE_TASK } from "../../../queries/tasks"
 import { Task } from "../../../types/task.type"
 import { EddoCallback } from "../../../types/callbacks.type"
 import { Trash } from "tabler-icons-react"
+import { UseFormReturnType } from "@mantine/form/lib/use-form"
 
 const statuses = ['Not Started', 'In Progress', 'Completed'].map(s => {
 	return { value: s, label: s }
 })
 
-const TaskModal = ({task, close, callbacks} : { task: Task | null, close: () => void, callbacks: EddoCallback<Task>}) => {
+const TaskModal = ({form, task, close, callbacks} : { form: UseFormReturnType<Task>, task: Task | null, close: () => void, callbacks: EddoCallback<Task>}) => {
 
-	const [formState, setFormState] = useState(
-		{
-			title: task?.title || '',
-			status: task?.status || ''
-		}
-	)
+	const modalTitle = form.values.title === '' ? task?.title ? task?.title : 'Create New Task' : form.values.title
 
-	const handleStatusChange = (s: string) => setFormState({...formState, status: s})
-
-	useEffect(() => {
-		setFormState(
-			{
-				title: task?.title || '',
-				status: task?.status || ''
-			}
-		)
-	}, [task])
-	
-	const modalTitle = formState.title === '' ? task?._id === null ? 'New Task' : task?.title : formState.title
-	const notChanged = formState.title === task?.title && formState.status === task?.status
-
-	const [addNewTask] = useMutation(CREATE_TASK, {
-		variables: {
-			title: formState.title,
-			status: formState.status
-		},
-		onCompleted: ({ newTask }) => {
-			if (newTask.response) {
-				const task = {
-					_id: newTask.response,
-					...formState
-				}
-				callbacks.add(task)
-			} else console.log(newTask.error)
-			close()
+	const [createTask] = useMutation(CREATE_TASK, {
+		variables: form.values,
+		onCompleted: ({ createTask }) => {
+			if (createTask.response) {
+				callbacks.create(form.values)
+				close()
+			} else console.log(createTask)
 		}
 	})
 
 	const [updateTask] = useMutation(UPDATE_TASK, {
-		variables: {
-			_id: task?._id,
-			...formState
-		},
+		variables: form.values,
 		onCompleted: ({ updateTask }) => {
 			if (updateTask.response) {
-				const task = {
-					_id: updateTask.response,
-					...formState
-				}
-				callbacks.update(task)
+				callbacks.update(form.values)
+				close()
 			} else console.log(updateTask.error)
-			close()
 		}
 	})
 
 	const [deleteTask] = useMutation(DELETE_TASK, {
-		variables: { _id: task?._id },
+		variables: form.values,
 		onCompleted: ({ deleteTask }) => {
 			if (deleteTask.response) {
-				const id = task?._id || ''
-				callbacks.delete(id)
+				callbacks.delete(form.values)
+				close()
 			} else console.log(deleteTask.error)
-			close()
 		}
 	})
 
 	return (
 		<Modal centered opened={task !== null} title={modalTitle} onClose={close}>
 			<Stack>
-				<TextInput label="Title" size='md' value={formState.title} onChange={(e) => setFormState({...formState, title: e.currentTarget.value})}/>
+				<TextInput label="Title" size='md' {...form.getInputProps('title')}/>
 				<Space/>
-				<SegmentedControl size="sm" data={statuses} value={formState.status} onChange={handleStatusChange}/>
+				<SegmentedControl size="sm" data={statuses} {...form.getInputProps('status')}/>
 				<Space/>
 				<Group position='right'>
-					<Button onClick={task?._id === null ? () => addNewTask() : () => updateTask()} disabled={notChanged}>{task?._id === null ? 'Add New Task' : 'Modify Task'}</Button>
+					<Button onClick={task?._id === null ? () => createTask() : () => updateTask()}>{task?._id === null ? 'Add New Task' : 'Modify Task'}</Button>
 					<ActionIcon color='red' variant='light' onClick={() => deleteTask()}><Trash/></ActionIcon>
 				</Group>
-				
 			</Stack>
 		</Modal>
 	)
