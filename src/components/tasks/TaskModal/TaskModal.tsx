@@ -2,9 +2,9 @@ import { useMutation } from "@apollo/client"
 import { ActionIcon, Button, Group, Modal, SegmentedControl, Space, Stack, TextInput } from "@mantine/core"
 import { useEffect, useState } from "react"
 import { DELETE_TASK, CREATE_TASK, UPDATE_TASK } from "../../../queries/tasks"
-import { AiOutlineDelete } from 'react-icons/ai'
 import { Task } from "../../../types/task.type"
 import { EddoCallback } from "../../../types/callbacks.type"
+import { Trash } from "tabler-icons-react"
 
 const statuses = ['Not Started', 'In Progress', 'Completed'].map(s => {
 	return { value: s, label: s }
@@ -87,7 +87,7 @@ const TaskModal = ({task, close, callbacks} : { task: Task | null, close: () => 
 				<Space/>
 				<Group position='right'>
 					<Button onClick={task?._id === null ? () => addNewTask() : () => updateTask()} disabled={notChanged}>{task?._id === null ? 'Add New Task' : 'Modify Task'}</Button>
-					<ActionIcon color='red' variant='light' onClick={() => deleteTask()}><AiOutlineDelete/></ActionIcon>
+					<ActionIcon color='red' variant='light' onClick={() => deleteTask()}><Trash/></ActionIcon>
 				</Group>
 				
 			</Stack>

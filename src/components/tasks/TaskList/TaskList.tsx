@@ -2,10 +2,10 @@ import { ActionIcon, Group, Stack, Text, Title } from "@mantine/core"
 import { useEffect, useState } from "react"
 import TaskModal from "../TaskModal/TaskModal"
 import TaskItem from "../TaskItem/TaskItem"
-import { FaPlus } from 'react-icons/fa'
 import { useQuery } from "@apollo/client"
 import { CONTEXT_TASKS } from "../../../queries/tasks"
 import { Task } from "../../../types/task.type"
+import { Plus } from "tabler-icons-react"
 
 const emptyTask = { _id: null, title: '', status: 'Not Started'}
 
@@ -37,7 +37,7 @@ const TaskList = () => {
             <Stack>
                 <Group position='apart'>
                     <Title order={2}>Your Tasks</Title>
-                    <ActionIcon variant="light" onClick={() => setShownTask(emptyTask)}><FaPlus/></ActionIcon>
+                    <ActionIcon variant="light" onClick={() => setShownTask(emptyTask)}><Plus/></ActionIcon>
                 </Group>
                 <Stack>
                     { tasks.length > 0 ? tasks.map(t => <TaskItem key={t._id} onClick={() => setShownTask(t)} task={t}/>) : <Text>You have no pending tasks.</Text>}
