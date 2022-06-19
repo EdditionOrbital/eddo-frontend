@@ -11,3 +11,15 @@ export const CONTEXT_MODULES = gql`
         }
     }
 `
+export const READ_MODULE_DASHBOARD = gql`
+    query ReadModuleDashboard($id: ID!) {
+        readModule(id: $id) {
+            id
+            title
+            description
+            code
+            year
+            semester
+        }
+    }
+`
