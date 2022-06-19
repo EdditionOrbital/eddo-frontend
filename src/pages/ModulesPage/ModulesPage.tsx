@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client"
-import { Box, Button, Container, Group, SimpleGrid, Space, Stack, Title } from "@mantine/core"
+import { Box, Button, Group, SimpleGrid, Space, Stack, Title } from "@mantine/core"
 import { useEffect, useState } from "react"
 import { CONTEXT_MODULES } from "../../queries/modules"
 import { currentSem, currentYear } from "../../utils/currentYearSemester"

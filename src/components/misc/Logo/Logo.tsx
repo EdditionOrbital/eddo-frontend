@@ -1,5 +1,4 @@
 import { Group, Image, MediaQuery, Title } from "@mantine/core"
-import LogoFull from './eddo-logo-full.svg'
 import LogoPartial from './eddo-logo.svg'
 
 const Logo = ({height} : {height: number}) => {
