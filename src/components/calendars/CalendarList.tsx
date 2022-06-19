@@ -27,7 +27,7 @@ const CalendarList = () => {
                 {lessonTypes.map(t => <Button key={t} variant={t === type ? 'filled' : 'light'} onClick={() => setType(t)} compact>{t}</Button>)}
             </Group>
             <Stack>
-                {lessons.filter((e: Lesson) => type === 'All' ? true : type === e.lessonType).map((e: Lesson) => <CalendarItem key={e.code} event={e}/>)}
+                {lessons.filter((e: Lesson) => type === 'All' ? true : type === e.lessonType).map((e: Lesson) => <CalendarItem key={`${e.moduleId} ${e.lessonType} ${e.code} ${e.day}`} event={e}/>)}
             </Stack>
         </Stack>
     )

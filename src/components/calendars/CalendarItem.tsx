@@ -7,8 +7,7 @@ const CalendarItem = ({event} : {event : Lesson}) => {
         <Card withBorder className="fade-hover-card">
             <Group position='apart'>
                 <Stack align='flex-start' spacing={8}>
-                    <Title order={5}>{event.code} {event.moduleId
-                    }</Title>
+                    <Title order={5}>{event.code} {event.moduleId}</Title>
                     <Badge>{event.lessonType}</Badge>
                 </Stack>
                 <Stack align='flex-end' spacing={0}>
