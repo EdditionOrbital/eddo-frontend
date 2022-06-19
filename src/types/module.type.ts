@@ -11,3 +11,9 @@ export interface Module {
 	semester: number
 	students: User[]
 }
+
+export interface ModuleTaken {
+	moduleId: string
+	lessons: [string]
+	role: string
+}

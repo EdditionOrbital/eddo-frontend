@@ -1,3 +1,4 @@
+import { ModuleTaken } from "./module.type"
 export interface User {
 	__typename: string,
     _id: string,
@@ -6,6 +7,7 @@ export interface User {
     lastName: string | null,
 	email: string,
 	password: string,
+	title: string | undefined,
 	mYear: number | undefined,
-	title: string | undefined
+	modules: [ModuleTaken]
 }
