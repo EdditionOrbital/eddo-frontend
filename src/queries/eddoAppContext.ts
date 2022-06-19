@@ -8,15 +8,10 @@ export const APP_CONTEXT = gql`
                 firstName
                 lastName
                 email
-                ... on Student {
-                    modules {
-                        moduleId
-                    }
-                }
-                ... on Staff {
-                    modules {
-                        moduleId
-                    }
+                modules {
+                    moduleId
+                    lessons
+                    role
                 }
             }
             dbInitialised
