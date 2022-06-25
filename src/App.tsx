@@ -1,5 +1,4 @@
-import { useQuery } from "@apollo/client";
-import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { Route, Routes } from "react-router-dom";
 import AppContainer from "./components/navigation/AppContainer";
 import AllModulesPage from "./pages/ModulesPage";
@@ -8,33 +7,21 @@ import LoginPage from "./pages/LoginPage";
 import SettingsPage from "./pages/SettingsPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage";
 import ModuleSubpage from "./pages/ModuleSubpage";
-import { User } from "./types/user.type";
-import { CURRENT_USER } from "./queries/auth";
+import { UserContext } from "./services/userContextProvider";
 
 function App() {
-	const [user, setUser] = useState<User | null | undefined>(undefined)
-	const {loading, error, data} = useQuery(CURRENT_USER)
-
-	useEffect(() => {
-		if (data !== undefined) setUser(data.currentUser)
-	}, [loading, error, data])
-
+	const {user} = useContext(UserContext)
 	if (user === undefined) return <></>
 	if (user === null) return <LoginPage/>
 
-	const props = {
-		user: user,
-		setUser: setUser
-	}
-
 	return (
-		<AppContainer {...props}>
+		<AppContainer>
 			<Routes>
-			<Route path="/" element={<HomePage {...props}/>}/>
+			<Route path="/" element={<HomePage/>}/>
 			<Route path="modules" element={<AllModulesPage/>}/>
-			<Route path="settings" element={<SettingsPage {...props}/>}/>
+			<Route path="settings" element={<SettingsPage/>}/>
 			<Route path="announcements" element={<AnnouncementsPage/>}/>
-			<Route path="modules/:moduleId/*" element={<ModuleSubpage {...props}/>}/>
+			<Route path="modules/:moduleId/*" element={<ModuleSubpage/>}/>
 			</Routes>
 		</AppContainer>
 	)

@@ -1,18 +1,19 @@
 import { Box, Button, Space, Stack, TextInput, Title } from "@mantine/core"
 import { useForm } from "@mantine/form"
-import { Dispatch, SetStateAction } from "react"
+import { useContext } from "react"
 import { AUTH_TOKEN } from "../constants/authToken"
-import { User } from "../types/user.type"
+import { UserContext } from "../services/userContextProvider"
 
 interface SettingsPageProps {
-    user: User | null | undefined
-    setUser: Dispatch<SetStateAction<User | null | undefined>>
 }
 
 const SettingsPage = (props: SettingsPageProps) => {
+
+    const { user, setUser } = useContext(UserContext)
+
     const form = useForm({
         initialValues: {
-            ...props.user,
+            ...user,
             password: ''
         }
     })
@@ -21,7 +22,7 @@ const SettingsPage = (props: SettingsPageProps) => {
     const handleUpdatePassword = () => console.log('Update password')
 
     const logOutHandler = () => {
-        props.setUser(null)
+        setUser(null)
         localStorage.removeItem(AUTH_TOKEN)
         window.location.reload()
     }
@@ -30,9 +31,9 @@ const SettingsPage = (props: SettingsPageProps) => {
         <Box p={24} style={{ width: '90%', maxWidth: 500 }}>
             <Stack>
                 <Title order={2}>Profile Settings</Title>
-                <TextInput key='FirstNameInput' placeholder={props.user?.firstName || ''} label="First Name" size='md' required {...form.getInputProps('firstName')}/>
-                <TextInput key='LastNameInput' placeholder={props.user?.lastName || ''} label="Last Name" size='md' required {...form.getInputProps('lastName')}/>
-                <TextInput key='EmailInput' placeholder={props.user?.email || ''} label="Email" size='md' required {...form.getInputProps('email')}/>
+                <TextInput key='FirstNameInput' placeholder={user?.firstName || ''} label="First Name" size='md' required {...form.getInputProps('firstName')}/>
+                <TextInput key='LastNameInput' placeholder={user?.lastName || ''} label="Last Name" size='md' required {...form.getInputProps('lastName')}/>
+                <TextInput key='EmailInput' placeholder={user?.email || ''} label="Email" size='md' required {...form.getInputProps('email')}/>
                 <Space/>
                 <Button size="md" onClick={handleUpdateAccount}>Update</Button>
             </Stack>
