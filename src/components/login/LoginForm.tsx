@@ -7,9 +7,8 @@ import { LOGIN_MUTATION } from "../../queries/auth"
 import { AUTH_TOKEN } from "../../constants/authToken"
 
 const LoginForm = () => {
-
     const [loading, setLoading] = useState(false)
-
+    
     const form = useForm({
         initialValues: {
             email: '',

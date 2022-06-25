@@ -48,6 +48,14 @@ export const CURRENT_USER = gql`
 				lessons
 				role
 			}
+			... on Student {
+				tasks {
+					_id
+					title
+					status
+					date
+				}
+			}
 		}
 	}
 `

@@ -4,11 +4,7 @@ import { useContext } from "react"
 import { AUTH_TOKEN } from "../constants/authToken"
 import { UserContext } from "../services/userContextProvider"
 
-interface SettingsPageProps {
-}
-
-const SettingsPage = (props: SettingsPageProps) => {
-
+const SettingsPage = () => {
     const { user, setUser } = useContext(UserContext)
 
     const form = useForm({

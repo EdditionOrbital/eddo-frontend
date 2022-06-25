@@ -1,20 +1,16 @@
 import { MediaQuery, Navbar, useMantineTheme } from "@mantine/core";
 import { Route, Routes } from "react-router-dom";
-import { User } from "../../types/user.type";
 import Logo from "../misc/Logo";
 import MainNavigation from "./MainNavigation";
 import NavbarProfile from "./NavbarProfile";
 import SubpageNavigation from "./SubpageNavigation";
 
 interface EddoNavbarProps {
-	user: User
 	hidden: boolean
 }
 
 export default function EddoNavbar(props: EddoNavbarProps) {
-
 	const theme = useMantineTheme()
-
 	return (
 		<Navbar hiddenBreakpoint='sm' hidden={props.hidden} width={{base: 300}}>
 			<MediaQuery smallerThan='sm' styles={{display: 'none'}}>
@@ -22,7 +18,7 @@ export default function EddoNavbar(props: EddoNavbarProps) {
 					<Logo height={30}/>
 				</Navbar.Section>
 			</MediaQuery>
-			<NavbarProfile user={props.user}/>
+			<NavbarProfile/>
 			<MainNavigation/>
 			<Routes>
 				<Route path="/modules/:id/*" element={<SubpageNavigation/>}/>

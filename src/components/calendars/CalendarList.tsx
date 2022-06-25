@@ -1,8 +1,9 @@
-import { useQuery } from "@apollo/client"
+import { useLazyQuery } from "@apollo/client"
 import { Button, Group, Stack } from "@mantine/core"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { WEEKDAYS } from "../../constants/weekdays"
 import { CONTEXT_LESSONS } from "../../queries/lessons"
+import { UserContext } from "../../services/userContextProvider"
 import { Lesson } from "../../types/lesson.type"
 import { isCurrentSemMod } from "../../utils/currentYearSemester"
 import CalendarItem from "./CalendarItem"
@@ -14,13 +15,20 @@ interface CalendarListProps {
 }
 
 const CalendarList = (props: CalendarListProps) => {
-	const [lessons, setLessons] = useState<Lesson[]>([])
+	const { user, setUser } = useContext(UserContext)
 	const [type, setType] = useState(lessonTypes[0])
-	const { loading, data } = useQuery(CONTEXT_LESSONS)
+	const [getUserLessons] = useLazyQuery(CONTEXT_LESSONS, {
+		onCompleted: ({ contextLessons }) => {
+			if (user) setUser(({...user, lessons: contextLessons}))
+		}
+	})
 	
 	useEffect(() => {
-		if (data && data.contextLessons) setLessons(data.contextLessons)
-	}, [loading, data])
+		if (user && !user.lessons) getUserLessons()
+	}, [user, getUserLessons])
+
+	const lessons = user?.lessons
+	if (!lessons) return <></>
 
 	return (
 		<Stack>

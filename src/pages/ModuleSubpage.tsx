@@ -9,10 +9,7 @@ import ModuleDashboard from "./ModuleDashboard";
 import ModuleDetails from "./ModuleDetails";
 import ModuleResources from "./ModuleResources";
 
-interface ModuleSubpageProps {
-}
-
-export default function ModuleSubpage(props: ModuleSubpageProps) {
+export default function ModuleSubpage() {
 	const { user } = useContext(UserContext)
 	const { moduleId } = useParams()
 	const [module, setModule] = useState<null | Module>(null)

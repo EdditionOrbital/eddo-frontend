@@ -16,7 +16,7 @@ const AppContainer = (props: AppContainerProps) => {
     if (!user) return <></>
 
     return (
-        <AppShell padding='xl' navbar={<EddoNavbar user={user} hidden={!opened}/>} header={<EddoHeader toggle={toggle}/>}>
+        <AppShell padding='xl' navbar={<EddoNavbar hidden={!opened}/>} header={<EddoHeader toggle={toggle}/>}>
             {props.children}
         </AppShell>
     )

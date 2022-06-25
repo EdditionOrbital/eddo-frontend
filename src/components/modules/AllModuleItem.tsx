@@ -12,7 +12,7 @@ const AllModuleItem = (props: AllModuleItemProps) => {
     const isCurrentSemMod = props.module.year === currentYear && props.module.semester === currentSem
     const navigate = useNavigate()
     const handleModuleClick = () => {
-        isCurrentSemMod && navigate(`/modules/${module.id}`)
+        isCurrentSemMod && navigate(`/modules/${props.module.id}`)
     }
 
     return (

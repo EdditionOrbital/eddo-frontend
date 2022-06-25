@@ -1,16 +1,5 @@
 import { gql } from "@apollo/client";
 
-export const CONTEXT_TASKS = gql`
-    query ContextTasks {
-        contextTasks {
-            _id
-            title
-            status
-            date
-        }
-    }
-`
-
 export const CREATE_TASK = gql`
     mutation CreateTask($title: String, $status: String) {
         createTask(title: $title, status: $status) {

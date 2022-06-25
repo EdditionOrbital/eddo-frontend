@@ -1,13 +1,10 @@
 import { Divider, Stack, Title } from "@mantine/core"
 import { Calendar } from "@mantine/dates"
 import { useForm } from "@mantine/hooks"
-import { useState } from "react"
 import CalendarList from "./CalendarList"
 
 const CalendarView = () => {
-
     const form = useForm({ initialValues: { date: new Date() }})
-
     return (
         <Stack spacing={24}>
             <Title order={2}>Your Calendar</Title>
