@@ -9,14 +9,9 @@ import { Module } from "../types/module.type"
 const categories = ['Enrolled', 'All', 'Coursera', 'Other']
 
 const AllModulesPage = () => {
-
     const [category, setCategory] = useState(categories[0])
     const buttons = categories.map(c => 
-        <Button 
-        key={c}
-        variant={category === c ? 'filled' : 'light'}
-        onClick={() => setCategory(c)} 
-        >
+        <Button key={c}variant={category === c ? 'filled' : 'light'} onClick={() => setCategory(c)} >
             {c} Modules
         </Button>
     )

@@ -1,9 +1,14 @@
 import { Badge, MantineSize } from "@mantine/core"
 
-const TaskCompletionBadge = ({status, size} : {status: string, size: MantineSize | undefined}) => {
-	const color = status === 'Completed' ? 'green' : status === 'In Progress' ? 'yellow' : 'red'
+interface TaskCompletionBadgeProps {
+	status: string
+	size: MantineSize | undefined
+}
+
+const TaskCompletionBadge = (props: TaskCompletionBadgeProps) => {
+	const color = props.status === 'Completed' ? 'green' : props.status === 'In Progress' ? 'yellow' : 'red'
 	return (
-		<Badge color={color} size={size}>{status}</Badge>
+		<Badge color={color} size={props.size}>{props.status}</Badge>
 	)
 }
 

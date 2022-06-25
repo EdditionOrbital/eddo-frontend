@@ -6,8 +6,11 @@ import { READ_MODULE_RESOURCES } from "../queries/files";
 import { Module } from "../types/module.type";
 import { File, Folder } from "../types/resources.type";
 
-export default function ModuleResources({module} : {module: Module}) {
+interface ModuleResourcesProps {
+	module: Module
+}
 
+export default function ModuleResources(props: ModuleResourcesProps) {
 	const [folders, setFolders] = useState<Folder[]>([])
 	const [files, setFiles] = useState<File[]>([])
 	const [parentFolder, setParentFolder] = useState<string | null>(null)
@@ -26,7 +29,6 @@ export default function ModuleResources({module} : {module: Module}) {
 
 	return (
 		<Stack>
-			{/* <Title order={3}>All Resources</Title> */}
 			<Table fontSize='sm' verticalSpacing={'sm'}>
 				<thead>
 					<tr>
@@ -37,7 +39,6 @@ export default function ModuleResources({module} : {module: Module}) {
 				</thead>
 				<tbody>
 					{ previousFolderId && <tr className="fade-hover-card" style={{cursor: 'pointer'}} onClick={() => setParentFolder(previousFolderId)}><td colSpan={3}><Group><ArrowBackUp/>..</Group></td></tr>}
-					{/*Add back row here*/}
 					{folders.filter(f => f.parentFolder === parentFolder).map(f => (
 						<tr onClick={() => setParentFolder(f._id)} className="fade-hover-card" style={{cursor: 'pointer'}}>
 							<td><Group><FolderIcon/>{f.title}</Group></td>

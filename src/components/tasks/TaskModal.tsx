@@ -10,49 +10,56 @@ const statuses = ['Not Started', 'In Progress', 'Completed'].map(s => {
 	return { value: s, label: s }
 })
 
-const TaskModal = ({form, task, close, callbacks} : { form: UseFormReturnType<Task>, task: Task | null, close: () => void, callbacks: EddoCallback<Task>}) => {
+interface TaskModalProps {
+	form: UseFormReturnType<Task>
+	task: Task | null
+	close: () => void
+	callbacks: EddoCallback<Task>
+}
 
-	const modalTitle = form.values.title === '' ? task?.title ? task?.title : 'Create New Task' : form.values.title
+const TaskModal = (props: TaskModalProps) => {
+
+	const modalTitle = props.form.values.title === '' ? props.task?.title ? props.task?.title : 'Create New Task' : props.form.values.title
 
 	const [createTask] = useMutation(CREATE_TASK, {
-		variables: form.values,
+		variables: props.form.values,
 		onCompleted: ({ createTask }) => {
 			if (createTask.response) {
-				callbacks.create(form.values)
-				close()
+				props.callbacks.create(props.form.values)
+				props.close()
 			} else console.log(createTask)
 		}
 	})
 
 	const [updateTask] = useMutation(UPDATE_TASK, {
-		variables: form.values,
+		variables: props.form.values,
 		onCompleted: ({ updateTask }) => {
 			if (updateTask.response) {
-				callbacks.update(form.values)
-				close()
+				props.callbacks.update(props.form.values)
+				props.close()
 			} else console.log(updateTask.error)
 		}
 	})
 
 	const [deleteTask] = useMutation(DELETE_TASK, {
-		variables: form.values,
+		variables: props.form.values,
 		onCompleted: ({ deleteTask }) => {
 			if (deleteTask.response) {
-				callbacks.delete(form.values)
-				close()
+				props.callbacks.delete(props.form.values)
+				props.close()
 			} else console.log(deleteTask.error)
 		}
 	})
 
 	return (
-		<Modal centered opened={task !== null} title={modalTitle} onClose={close}>
+		<Modal centered opened={props.task !== null} title={modalTitle} onClose={props.close}>
 			<Stack>
-				<TextInput label="Title" size='md' {...form.getInputProps('title')}/>
+				<TextInput label="Title" size='md' {...props.form.getInputProps('title')}/>
 				<Space/>
-				<SegmentedControl size="sm" data={statuses} {...form.getInputProps('status')}/>
+				<SegmentedControl size="sm" data={statuses} {...props.form.getInputProps('status')}/>
 				<Space/>
 				<Group position='right'>
-					<Button onClick={task?._id === null ? () => createTask() : () => updateTask()}>{task?._id === null ? 'Add New Task' : 'Modify Task'}</Button>
+					<Button onClick={props.task?._id === null ? () => createTask() : () => updateTask()}>{props.task?._id === null ? 'Add New Task' : 'Modify Task'}</Button>
 					<ActionIcon color='red' variant='light' onClick={() => deleteTask()}><Trash/></ActionIcon>
 				</Group>
 			</Stack>

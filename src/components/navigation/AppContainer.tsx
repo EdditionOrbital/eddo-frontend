@@ -4,18 +4,18 @@ import { User } from "../../types/user.type"
 import EddoHeader from "./EddoHeader"
 import EddoNavbar from "./EddoNavbar"
 
-const AppContainer = ({children, user}: {children: React.ReactNode, user: User}) => {
+interface AppContainerProps {
+    user: User
+    children: React.ReactNode
+}
 
+const AppContainer = (props: AppContainerProps) => {
     const [opened, setOpened] = useState(false)
     const toggle = () => setOpened(!opened)
 
     return (
-        <AppShell 
-            padding='xl' 
-            navbar={<EddoNavbar user={user} hidden={!opened}/>} 
-            header={<EddoHeader toggle={toggle}/>}
-        >
-            {children}
+        <AppShell padding='xl' navbar={<EddoNavbar user={props.user} hidden={!opened}/>} header={<EddoHeader toggle={toggle}/>}>
+            {props.children}
         </AppShell>
     )
 }

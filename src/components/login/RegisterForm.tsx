@@ -4,7 +4,7 @@ import { useForm } from "@mantine/hooks"
 import { showNotification } from "@mantine/notifications"
 import { useState } from "react"
 import { STAFF_REGISTER_MUTATION, STUDENT_REGISTER_MUTATION } from "../../queries/auth"
-import { AUTH_TOKEN } from "../../utils/constants"
+import { AUTH_TOKEN } from "../../constants/authToken"
 
 const RegisterForm = () => {
 

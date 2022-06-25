@@ -9,11 +9,13 @@ import ModuleDashboard from "./ModuleDashboard";
 import ModuleDetails from "./ModuleDetails";
 import ModuleResources from "./ModuleResources";
 
-export default function ModuleSubpage({ user }: { user: User }) {
+interface ModuleSubpageProps {
+	user: User
+}
+
+export default function ModuleSubpage(props: ModuleSubpageProps) {
 	const { moduleId } = useParams()
-
 	const [module, setModule] = useState<null | Module>(null)
-
 	const { loading, data } = useQuery(READ_MODULE_DASHBOARD, {
 		variables: { id: moduleId }
 	})
@@ -24,7 +26,7 @@ export default function ModuleSubpage({ user }: { user: User }) {
 
 	if (!module) return <></>
 
-	const lessons = user.modules.find(mod => mod.moduleId === moduleId)?.lessons
+	const lessons = props.user?.modules.find(mod => mod.moduleId === moduleId)?.lessons || []
 
 	return (
 		<Box p={24} style={{ width: '90%', maxWidth: 1500 }}>

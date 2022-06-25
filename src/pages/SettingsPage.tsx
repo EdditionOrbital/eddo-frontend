@@ -1,8 +1,8 @@
 import { Box, Button, Space, Stack, TextInput, Title } from "@mantine/core"
 import { useForm } from "@mantine/form"
 import { Dispatch, SetStateAction } from "react"
+import { AUTH_TOKEN } from "../constants/authToken"
 import { User } from "../types/user.type"
-import { AUTH_TOKEN } from "../utils/constants"
 
 interface SettingsPageProps {
     user: User | null | undefined

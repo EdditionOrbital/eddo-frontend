@@ -4,7 +4,7 @@ import { useForm } from "@mantine/form"
 import { showNotification } from "@mantine/notifications"
 import { useState } from "react"
 import { LOGIN_MUTATION } from "../../queries/auth"
-import { AUTH_TOKEN } from "../../utils/constants"
+import { AUTH_TOKEN } from "../../constants/authToken"
 
 const LoginForm = () => {
 

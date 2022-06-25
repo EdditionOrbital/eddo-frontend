@@ -1,21 +1,26 @@
-import { Modal, Stack, Text, Title } from "@mantine/core";
-import { Announcement } from "../../types/announcement.type";
+import { Modal, Stack, Text, Title } from "@mantine/core"
+import { Announcement } from "../../types/announcement.type"
 
-function AnnouncementModal({announcement, close} : {announcement: Announcement | null, close: () => void}) {
+interface AnnouncementModalProps {
+	announcement: Announcement | null
+	close: () => void
+}
+
+function AnnouncementModal(props: AnnouncementModalProps) {
 	return ( 
-		<Modal centered opened={announcement !== null} title={'Announcement'} onClose={close}>
+		<Modal centered opened={props.announcement !== null} title={'Announcement'} onClose={props.close}>
 			<Stack spacing='xl'>
 				<Stack spacing='xs'>
-					<Title order={3}>{announcement?.title}</Title>
-					<Text>{announcement?.content ? announcement?.content : 'No content for announcement'}</Text>
+					<Title order={3}>{props.announcement?.title}</Title>
+					<Text>{props.announcement?.content ? props.announcement?.content : 'No content for announcement'}</Text>
 				</Stack>
 				<Stack spacing={0}>
-					<Text>by {announcement?.author}</Text>
-					<Text>{announcement?.date}</Text>
+					<Text>by {props.announcement?.author}</Text>
+					<Text>{props.announcement?.date}</Text>
 				</Stack>
 			</Stack>
 		</Modal>
-	 );
+	 )
 }
 
-export default AnnouncementModal;
+export default AnnouncementModal
