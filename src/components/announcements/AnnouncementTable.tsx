@@ -67,7 +67,7 @@ const AnnouncementTable = () => {
 				<tbody>
 					{
 						announcements.map(a => (
-							<tr onClick={() => setCurrentAnnouncement(a)} className="fade-hover-card">
+							<tr key={`${a.date}-${a.title}`} onClick={() => setCurrentAnnouncement(a)} className="fade-hover-card">
 								<td>{a.date}</td>
 								<td>{a.title}</td>
 								<td>{a.author}</td>
