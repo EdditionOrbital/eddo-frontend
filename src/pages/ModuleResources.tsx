@@ -15,7 +15,7 @@ export default function ModuleResources(props: ModuleResourcesProps) {
 	const [files, setFiles] = useState<File[]>([])
 	const [parentFolder, setParentFolder] = useState<string | null>(null)
 
-	const { loading, data } = useQuery(READ_MODULE_RESOURCES, { variables: module })
+	const { loading, data } = useQuery(READ_MODULE_RESOURCES, { variables: props.module })
 
 	useEffect(() => {
 		if (data && data.readModule) {
