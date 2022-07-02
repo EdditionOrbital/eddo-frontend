@@ -13,7 +13,7 @@ const authLink = setContext((_, { headers }) => {
 })
 
 const httpLink = new HttpLink({
-    uri: "http://188.166.56.148:4000/graphql"
+    uri: "https://eddo-server.herokuapp.com/"
 });
 
 const apolloClient = new ApolloClient({
