@@ -7,6 +7,7 @@ import { UserContext } from "../services/userContextProvider";
 import { Module } from "../types/module.type";
 import ModuleDashboard from "./ModuleDashboard";
 import ModuleDetails from "./ModuleDetails";
+import ModuleMedia from "./ModuleMedia";
 import ModuleResources from "./ModuleResources";
 
 export default function ModuleSubpage() {
@@ -42,6 +43,7 @@ export default function ModuleSubpage() {
 					<Route path={`/`} element={<ModuleDashboard/>}/>
 					<Route path={`/details`} element={<ModuleDetails module={module}/>}/>
 					<Route path={`/resources`} element={<ModuleResources module={module}/>}/>
+					<Route path={`/media/*`} element={<ModuleMedia/>}/>
 				</Routes>
 			</Stack>
 		</Box>
