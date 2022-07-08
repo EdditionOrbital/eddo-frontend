@@ -22,7 +22,7 @@ const TaskList = () => {
     const callbacks = {
         create: (t: Task) => setUser({ ...user, tasks: user.tasks ? [...user.tasks, t] : [t]}),
         update: (t: Task) => setUser({ ...user, tasks: user.tasks ? user.tasks.map(i => t._id === i._id ? t : i) : [t] }),
-        delete: (t: Task) => setUser({ ...user, tasks: user.tasks ? user.tasks.filter(i => t._id !== i._id) : []})
+        delete: (_id: string) => setUser({ ...user, tasks: user.tasks ? user.tasks.filter(i => _id !== i._id) : []})
     }
 
     const handleNewTaskClick = () => {

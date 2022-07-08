@@ -45,7 +45,7 @@ const TaskModal = (props: TaskModalProps) => {
 		variables: props.form.values,
 		onCompleted: ({ deleteTask }) => {
 			if (deleteTask.response) {
-				props.callbacks.delete(props.form.values)
+				props.callbacks.delete(props.form.values._id || '')
 				props.close()
 			} else console.log(deleteTask.error)
 		}
