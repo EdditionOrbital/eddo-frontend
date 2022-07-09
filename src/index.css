@@ -6,3 +6,11 @@
 .fade-hover-card:hover {
     background-color: rgba(0, 0, 0, 0.04);
 }
+
+.dangSetHTML *:first-of-type {
+    margin-top: 0px;
+}
+
+.dangSetHTML *:last-of-type {
+    margin-bottom: 0px;
+}
