@@ -1,6 +1,6 @@
 import { Navbar, Stack, useMantineTheme } from "@mantine/core";
 import { useParams } from "react-router-dom";
-import { Dashboard, File, InfoSquare, Video } from "tabler-icons-react";
+import { Dashboard, File, InfoSquare, Paperclip, Video } from "tabler-icons-react";
 import EddoNavbarButton from "./EddoNavbarButton";
 
 export default function SubpageNavigation() {
@@ -23,6 +23,11 @@ export default function SubpageNavigation() {
 			name: "Media", 
 			url: `/modules/${id}/media`,
 			icon: <Video/>
+		},
+		{ 
+			name: "Assignments", 
+			url: `/modules/${id}/assignments` ,
+			icon: <Paperclip/>
 		},
 		{ 
 			name: "Resources", 

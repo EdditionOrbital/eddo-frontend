@@ -5,6 +5,7 @@ import { Route, Routes, useParams } from "react-router-dom";
 import { READ_MODULE_DASHBOARD } from "../queries/modules";
 import { UserContext } from "../services/userContextProvider";
 import { Module } from "../types/module.type";
+import ModuleAssignments from "./ModuleAssignments";
 import ModuleDashboard from "./ModuleDashboard";
 import ModuleDetails from "./ModuleDetails";
 import ModuleMedia from "./ModuleMedia";
@@ -44,6 +45,7 @@ export default function ModuleSubpage() {
 					<Route path={`/details`} element={<ModuleDetails module={module}/>}/>
 					<Route path={`/resources`} element={<ModuleResources module={module}/>}/>
 					<Route path={`/media/*`} element={<ModuleMedia/>}/>
+					<Route path={`/assignments/*`} element={<ModuleAssignments/>}/>
 				</Routes>
 			</Stack>
 		</Box>
