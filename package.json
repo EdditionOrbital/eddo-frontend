@@ -10,6 +10,7 @@
     "@mantine/hooks": "^4.2.6",
     "@mantine/modals": "^4.2.6",
     "@mantine/notifications": "^4.2.6",
+    "@mantine/rte": "^4.2.12",
     "@types/jest": "^27.5.1",
     "@types/node": "^16.11.36",
     "@types/react": "^18.0.9",
