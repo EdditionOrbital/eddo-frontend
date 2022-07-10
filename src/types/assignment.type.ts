@@ -5,5 +5,14 @@ export interface Assignment {
 	title: string
 	instructions?: string
 	files?: string[]
-	maxScore: number | null
+	maxScore: number
+}
+
+export interface AssignmentSubmission {
+	_id: string
+	date: string
+	studentId?: string
+	assignmentId: string
+	files: string[]
+	score: number
 }

@@ -15,5 +15,5 @@ export const emptyAssignment: Assignment = {
 	title: '',
 	instructions: '',
 	files: [],
-	maxScore: null
+	maxScore: -1
 }
