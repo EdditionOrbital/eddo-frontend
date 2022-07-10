@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { ActionIcon, Anchor, Divider, Group, Stack, Text, Title } from "@mantine/core";
+import { ActionIcon, Anchor, Card, Divider, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,6 +9,7 @@ import { UserContext } from "../../services/userContextProvider";
 import { Assignment } from "../../types/assignment.type";
 import { EddoCallback } from "../../types/callbacks.type";
 import AssignmentDrawer from "./AssignmentDrawer";
+import AssignmentSubmit from "./AssignmentSubmit";
 
 export default function AssignmentView() {
 	const { user } = useContext(UserContext)
@@ -33,50 +34,57 @@ export default function AssignmentView() {
 		<Stack>
 			<Anchor onClick={() => navigate(-1)}>Back to Assignments</Anchor>
 			<Divider my='sm'/>
-			<Group position="apart">
-				<Stack spacing={4} mb='xl'>
-					<Title order={3}>{assignment.title}</Title>
-					<Text size='sm'>Closes {moment(assignment.close).format('DD MMMM, hh:mm A')}</Text>
-				</Stack>
-				{
-					user?.__typename === 'Staff' && (
-						<Group>
-							<ActionIcon onClick={() => setDrawerAssignment(assignment)}><Pencil/></ActionIcon>
-							<ActionIcon color='red'><Trash/></ActionIcon>
-						</Group>
-					)
-				}
-			</Group>
-			<Stack spacing={24}>
-			{
-				assignment.instructions && (
-					<Stack spacing='xs'>
-						<Title order={4}>Instructions</Title>
-						<div className="dangSetHTML" dangerouslySetInnerHTML={{ __html: assignment.instructions || ''}}/>
-					</Stack>
-				)
-			}
-			{
-				assignment.files && assignment.files.length > 0 && (
-					<Stack spacing='xs'>
-						<Title order={4}>Files</Title>
-						<Group>
+			<SimpleGrid cols={2} spacing='xl'>
+				<Stack>
+				<Card p='md' withBorder>
+					<Group position="apart">
+						<Stack spacing={4} mb='xl'>
+							<Title order={3}>{assignment.title}</Title>
+							<Text size='sm'>Closes {moment(assignment.close).format('DD MMMM, hh:mm A')}</Text>
+						</Stack>
 						{
-							assignment.files.map(a => <Anchor>{a}</Anchor>)
+							user?.__typename === 'Staff' && (
+								<Group>
+									<ActionIcon onClick={() => setDrawerAssignment(assignment)}><Pencil/></ActionIcon>
+									<ActionIcon color='red'><Trash/></ActionIcon>
+								</Group>
+							)
 						}
-						</Group>
+					</Group>
+					<Stack spacing={24}>
+					{
+						assignment.instructions && (
+							<Stack spacing={4}>
+								<Title order={4}>Instructions</Title>
+								<div className="dangSetHTML" dangerouslySetInnerHTML={{ __html: assignment.instructions || ''}}/>
+							</Stack>
+						)
+					}
+					{
+						assignment.files && assignment.files.length > 0 && (
+							<Stack spacing={4}>
+								<Title order={4}>Files</Title>
+								<Group>
+								{
+									assignment.files.map(a => <Anchor>{a}</Anchor>)
+								}
+								</Group>
+							</Stack>
+						)
+					}
+					{
+						assignment.maxScore !== -1 && (
+							<Stack spacing={4}>
+								<Title order={4}>Maximum Score</Title>
+								<Text>{assignment.maxScore}</Text>
+							</Stack>
+						)
+					}
 					</Stack>
-				)
-			}
-			{
-				assignment.maxScore && (
-					<Stack spacing='xs'>
-						<Title order={4}>Maximum Score</Title>
-						<Text>{assignment.maxScore}</Text>
-					</Stack>
-				)
-			}
-			</Stack>
+				</Card>
+				</Stack>
+				<AssignmentSubmit/>
+			</SimpleGrid>
 		</Stack>
 		</>
 	)

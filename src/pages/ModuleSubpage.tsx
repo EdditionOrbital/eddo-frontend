@@ -25,7 +25,7 @@ export default function ModuleSubpage() {
 
 	if (!module) return <></>
 
-	const lessons = user?.modules.find(mod => mod.moduleId === moduleId)?.lessons || []
+	const lessons = user?.modules ? user?.modules.find(mod => mod.moduleId === moduleId)?.lessons || [] : []
 
 	return (
 		<Box p={24} style={{ width: '90%', maxWidth: 1500 }}>

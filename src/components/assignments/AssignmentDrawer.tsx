@@ -59,8 +59,6 @@ export default function AssignmentDrawer(props: AssignmentDrawerProps) {
 		}
 	})
 	const title = form.values._id ? form.values.title !== '' ? form.values.title : props.assignment?.title || '' : 'New Assignment'
-	// console.log()
-	console.log(form.values.instructions)
 	return (
 		<Drawer position="right" size='xl' opened={!!props.assignment} onClose={props.close} title={title} styles={{title: { fontWeight: 'bold'}}} padding='lg'>
 			<Stack>
