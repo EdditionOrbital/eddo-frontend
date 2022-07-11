@@ -9,6 +9,7 @@ import ModuleAssignments from "./ModuleAssignments";
 import ModuleDashboard from "./ModuleDashboard";
 import ModuleDetails from "./ModuleDetails";
 import ModuleMedia from "./ModuleMedia";
+import ModuleQuiz from "./ModuleQuiz";
 import ModuleResources from "./ModuleResources";
 
 export default function ModuleSubpage() {
@@ -46,6 +47,7 @@ export default function ModuleSubpage() {
 					<Route path={`/resources`} element={<ModuleResources module={module}/>}/>
 					<Route path={`/media/*`} element={<ModuleMedia/>}/>
 					<Route path={`/assignments/*`} element={<ModuleAssignments/>}/>
+					<Route path={`/quizzes/*`} element={<ModuleQuiz/>}/>
 				</Routes>
 			</Stack>
 		</Box>
