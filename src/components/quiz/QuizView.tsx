@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../services/userContextProvider";
 import ModifyQuiz from "./ModifyQuiz";
+import QuizAttempt from "./QuizAttempt";
 
 export default function QuizView() {
 	const navigate = useNavigate()
@@ -12,7 +13,7 @@ export default function QuizView() {
 			<Anchor onClick={() => navigate(-1)}>Back to Quizzes</Anchor>
 			<Divider my='sm'/>
 			{
-				user?.__typename === 'Staff' ? <ModifyQuiz/> : <></>
+				user?.__typename === 'Staff' ? <ModifyQuiz/> : <QuizAttempt/>
 			}
 		</Stack>
 	)

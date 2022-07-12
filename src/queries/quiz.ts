@@ -29,6 +29,7 @@ export const READ_QUIZ = gql`
 				answers
 			}
 			displayScore
+			numQuestions
 		}
 	}
 `
@@ -50,6 +51,7 @@ export const READ_QUIZ_WITHOUT_ANSWERS = gql`
 				}
 			}
 			displayScore
+			numQuestions
 		}
 	}
 `
@@ -62,6 +64,7 @@ export const READ_QUIZ_WITHOUT_QUESTIONS = gql`
 			open
 			close
 			displayScore
+			numQuestions
 		}
 	}
 `

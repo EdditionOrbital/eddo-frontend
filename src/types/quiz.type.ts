@@ -6,6 +6,7 @@ export interface Quiz {
 	close: string
 	questions: QuizQuestion[]
 	displayScore: boolean
+	numQuestions?: number
 }
 
 export interface QuizQuestion {
