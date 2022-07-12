@@ -25,3 +25,19 @@ export interface MCOption {
 	__typename?: string
 	value: string
 }
+
+export interface QuizSubmission {
+	_id?: string
+	date: string
+	studentId?: string
+	quizId: string
+	responses: QuizResponse[]
+	time: number
+	status: string
+}
+
+export interface QuizResponse {
+	__typename?: string
+	questionId: string
+	options: string[]
+}
