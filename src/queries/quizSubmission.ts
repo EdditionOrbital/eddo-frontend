@@ -31,7 +31,10 @@ export const READ_CURRENT_USER_QUIZ_SUBMISSIONS = gql`
 					_id
 					date
 					quizId
-					responses
+					responses {
+						questionId
+						options
+					}
 					time
 					status
 				}

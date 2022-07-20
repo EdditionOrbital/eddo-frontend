@@ -42,6 +42,7 @@ export const READ_QUIZ_WITHOUT_ANSWERS = gql`
 			open
 			close
 			questions {
+				_id
 				type
 				order
 				body
