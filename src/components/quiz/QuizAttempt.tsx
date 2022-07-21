@@ -1,12 +1,12 @@
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { Button, Checkbox, Group, Space, Stack, Text, TextInput, Title } from "@mantine/core";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { READ_QUIZ_WITHOUT_ANSWERS, READ_QUIZ_WITHOUT_QUESTIONS } from "../../queries/quiz";
-import { READ_CURRENT_USER_QUIZ_SUBMISSIONS } from "../../queries/quizSubmission";
+import { CREATE_QUIZ_SUBMISSION, READ_CURRENT_USER_QUIZ_SUBMISSIONS, UPDATE_QUIZ_SUBMISSION } from "../../queries/quizSubmission";
 import { UserContext } from "../../services/userContextProvider";
-import { Quiz, QuizQuestion, QuizResponse } from "../../types/quiz.type";
+import { Quiz, QuizQuestion, QuizResponse, QuizSubmission } from "../../types/quiz.type";
 
 export default function QuizAttempt() {
 	const [quiz, setQuiz] = useState<Quiz | null | undefined>(undefined)
@@ -33,11 +33,39 @@ export default function QuizAttempt() {
 			}
 		}
 	})
+	const [createQuizSubmission] = useMutation(CREATE_QUIZ_SUBMISSION)
+	const [updateQuizSubmission] = useMutation(UPDATE_QUIZ_SUBMISSION)
+	const handleSubmit = (status: string) => () => {
+		const currSub = user?.quizSubmissions?.find(q => q.quizId === quizId)
+		console.log(currSub)
+		if (currSub) {
+			updateQuizSubmission({
+				variables: { _id: currSub._id, responses: responses || [], time: 0, status },
+				onCompleted: ({ updateQuizSubmission }) => {
+					if (updateQuizSubmission.response && user && user?.quizSubmissions) {
+						const newSub = ({...currSub, responses: responses || [], status })
+						setUser({...user, quizSubmissions: user?.quizSubmissions?.map(q => q._id === quizId ? newSub : q)})
+					}
+				}
+			})
+		} else {
+			createQuizSubmission({
+				variables: { quizId: quizId || '', responses: responses || [], time: 0, status },
+				onCompleted: ({ createQuizSubmission }) => {
+					if (createQuizSubmission.response && user && user?.quizSubmissions) {
+						const newSub: QuizSubmission = ({ quizId: quizId || '', date: new Date().toISOString(), time: 0, responses: responses || [], status })
+						setUser({...user, quizSubmissions: [...(user.quizSubmissions || []), newSub]})
+					}
+				}
+			})
+		}
+		if (status === 'Complete') setCurrentQuestion(-1)
+	}
 	useEffect(() => {
 		return () => setCurrentQuestion(-1)
 	}, [])
 	useEffect(() => {
-		if (quiz?.questions && !responses?.map(r => r.questionId).includes(quiz.questions[currentQuestion]._id)) {
+		if (currentQuestion >= 0 && quiz?.questions && !responses?.map(r => r.questionId).includes(quiz.questions[currentQuestion]._id)) {
 			setResponses([...(responses || []), ({ questionId: quiz.questions[currentQuestion]._id, options: []})])
 		}
 	}, [currentQuestion])
@@ -60,10 +88,10 @@ export default function QuizAttempt() {
 			setResponses([...(responses || []), ({ questionId: quiz.questions[currentQuestion]._id, options: []})])
 		}
 	}, [quiz, currentQuestion])
+
 	if (quiz === undefined) return <></>
 	if (quiz === null) return <Text>No quiz found with this ID.</Text>
 	const question = quiz.questions && quiz.questions[currentQuestion]
-	console.log(responses)
 	return currentQuestion >= 0 ?
 		quiz.questions ? (
 			<Stack>
@@ -101,8 +129,8 @@ export default function QuizAttempt() {
 				<Group position="apart">
 					<Button disabled={currentQuestion <= 0} onClick={() => setCurrentQuestion(q => q - 1)}>Back</Button>
 					<Group>
-						<Button>Save</Button>
-						{ currentQuestion + 1 === quiz.questions.length ? <Button>Finish</Button> : <Button onClick={() => setCurrentQuestion(q => q + 1)}>Next</Button>}
+						<Button onClick={handleSubmit('In Progress')}>Save</Button>
+						{ currentQuestion + 1 === quiz.questions.length ? <Button onClick={handleSubmit('Complete')}>Finish</Button> : <Button onClick={() => setCurrentQuestion(q => q + 1)}>Next</Button>}
 					</Group>
 				</Group>
 			</Stack>
