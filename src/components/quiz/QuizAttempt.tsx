@@ -1,5 +1,5 @@
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { Button, Checkbox, Group, Space, Stack, Text, TextInput, Title } from "@mantine/core";
+import { Button, Card, Checkbox, Group, Space, Stack, Text, TextInput, Title, Tooltip } from "@mantine/core";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -18,33 +18,35 @@ export default function QuizAttempt() {
 		variables: { _id: quizId },
 		onCompleted: ({ readQuiz }) => {
 			setQuiz(readQuiz)
-		}
+		},
+		fetchPolicy: 'no-cache'
 	})
 	const [getQuizQuestions] = useLazyQuery(READ_QUIZ_WITHOUT_ANSWERS, {
 		variables: { _id: quizId },
 		onCompleted: ({ readQuiz }) => {
 			if (quiz) setQuiz({...quiz, ...readQuiz})
-		}
+		},
+		fetchPolicy: 'no-cache'
 	})
 	const [getQuizSubmissions] = useLazyQuery(READ_CURRENT_USER_QUIZ_SUBMISSIONS, {
 		onCompleted: ({ currentUser }) => {
 			if (user && currentUser) {
 				setUser({...user, ...currentUser})
 			}
-		}
+		},
+		fetchPolicy: 'no-cache'
 	})
 	const [createQuizSubmission] = useMutation(CREATE_QUIZ_SUBMISSION)
 	const [updateQuizSubmission] = useMutation(UPDATE_QUIZ_SUBMISSION)
 	const handleSubmit = (status: string) => () => {
 		const currSub = user?.quizSubmissions?.find(q => q.quizId === quizId)
-		console.log(currSub)
 		if (currSub) {
 			updateQuizSubmission({
 				variables: { _id: currSub._id, responses: responses || [], time: 0, status },
 				onCompleted: ({ updateQuizSubmission }) => {
 					if (updateQuizSubmission.response && user && user?.quizSubmissions) {
 						const newSub = ({...currSub, responses: responses || [], status })
-						setUser({...user, quizSubmissions: user?.quizSubmissions?.map(q => q._id === quizId ? newSub : q)})
+						setUser({...user, quizSubmissions: user?.quizSubmissions?.map(q => q.quizId === quizId ? newSub : q)})
 					}
 				}
 			})
@@ -73,8 +75,8 @@ export default function QuizAttempt() {
 		if (user && !user.quizSubmissions) {
 			getQuizSubmissions()
 		} else if (user?.quizSubmissions && !responses) {
-			const currQuizSub = user.quizSubmissions.find(q => q._id === quizId)
-			if (currQuizSub) setResponses(currQuizSub.responses)
+			const currQuizSub = user.quizSubmissions.find(q => q.quizId === quizId)
+			if (currQuizSub) setResponses(currQuizSub.responses.map(({__typename, ...obj}) => obj))
 		}
 	}, [user])
 	useEffect(() => {
@@ -84,14 +86,33 @@ export default function QuizAttempt() {
 		} else {
 			if (currentQuestion >= 0 && !quiz.questions) getQuizQuestions()
 		}
-		if (quiz?.questions && !responses?.map(r => r.questionId).includes(quiz.questions[currentQuestion]._id)) {
+		if (quiz?.questions && currentQuestion >= 0 && !responses?.map(r => r.questionId).includes(quiz.questions[currentQuestion]._id)) {
 			setResponses([...(responses || []), ({ questionId: quiz.questions[currentQuestion]._id, options: []})])
 		}
 	}, [quiz, currentQuestion])
-
 	if (quiz === undefined) return <></>
 	if (quiz === null) return <Text>No quiz found with this ID.</Text>
 	const question = quiz.questions && quiz.questions[currentQuestion]
+	const PreviousAttemptCard = () => {
+		if (!user?.quizSubmissions) return <></>
+		const prevSub = user.quizSubmissions.find(q => q.quizId === quizId)
+		if (!prevSub) return <Text>No Previous Attempt Yet</Text>
+		return (
+			<Card shadow='md' withBorder p='md' style={{ maxWidth: 500 }}>
+				<Stack>
+					<Text><Text weight='bold'>Date: </Text>{moment(prevSub.date).format("DD/MM/YYYY, hh:mm A")}</Text>
+					<Text><Text weight='bold'>Status: </Text>{prevSub.status}</Text>
+				</Stack>
+			</Card>
+		)
+	}
+	const StartButton = () => {
+		if (!user?.quizSubmissions) return <></>
+		const prevSub = user.quizSubmissions.find(q => q.quizId === quizId)
+		if (!prevSub) return <Button onClick={() => setCurrentQuestion(0)}>Start</Button>
+		if (prevSub.status === 'In Progress') return <Button onClick={() => setCurrentQuestion(0)}>Resume</Button>
+		return <Tooltip label="You have already completed this quiz!"><Button disabled>Start</Button></Tooltip>
+	}
 	return currentQuestion >= 0 ?
 		quiz.questions ? (
 			<Stack>
@@ -141,19 +162,15 @@ export default function QuizAttempt() {
 						<Title order={3}>{quiz?.title}</Title>
 						<Text size='sm'>Closes {moment(quiz.close).format('DD MMMM, hh:mm A')}</Text>
 					</Stack>
-					<Button onClick={() => setCurrentQuestion(0)}>
-						Start
-					</Button>
+					<StartButton/>
 				</Group>
 				<Stack spacing={6}>
 					<Title order={5}>Number of Questions</Title>
 					<Text>{quiz.numQuestions}</Text>
 				</Stack>
 				<Stack spacing={6}>
-					<Title order={5}>Your Previous Attempts</Title>
-					<Text>{
-						user?.quizSubmissions?.length || 0
-					}</Text>
+					<Title order={5}>Your Previous Attempt</Title>
+					<PreviousAttemptCard/>
 				</Stack>
 			</Stack>
 		)
