@@ -1,3 +1,5 @@
+import { User } from "./user.type"
+
 export interface Assignment {
 	_id?: string
 	open: string
@@ -6,6 +8,7 @@ export interface Assignment {
 	instructions?: string
 	files?: string[]
 	maxScore: number
+	submissions?: AssignmentSubmission[]
 }
 
 export interface AssignmentSubmission {
@@ -15,4 +18,5 @@ export interface AssignmentSubmission {
 	assignmentId: string
 	files: string[]
 	score: number
+	student?: User
 }

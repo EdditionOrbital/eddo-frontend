@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
-import { ActionIcon, Anchor, Card, Divider, Group, SimpleGrid, Stack, Text, Title } from "@mantine/core";
+import { ActionIcon, Anchor, Card, Divider, Group, SimpleGrid, Space, Stack, Table, Text, Title } from "@mantine/core";
 import moment from "moment";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Pencil, Trash } from "tabler-icons-react";
-import { READ_ASSIGNMENT } from "../../queries/assignment";
+import { READ_ASSIGNMENT, READ_ASSIGNMENT_WITH_SUBMISSIONS } from "../../queries/assignment";
 import { UserContext } from "../../services/userContextProvider";
 import { Assignment } from "../../types/assignment.type";
 import { EddoCallback } from "../../types/callbacks.type";
@@ -16,7 +16,7 @@ export default function AssignmentView() {
 	const { assignmentId } = useParams()
 	const navigate = useNavigate()
 	const [assignment, setAssignment] = useState<Assignment | null | undefined>(undefined)
-	const { data } = useQuery(READ_ASSIGNMENT, { variables: { _id: assignmentId }})
+	const { data } = useQuery(user?.__typename === 'Student' ? READ_ASSIGNMENT : READ_ASSIGNMENT_WITH_SUBMISSIONS, { variables: { _id: assignmentId }})
 	useEffect(() => {
 		if (data) setAssignment(data.readAssignment)
 	}, [data])
@@ -85,6 +85,34 @@ export default function AssignmentView() {
 				</Stack>
 				<AssignmentSubmit/>
 			</SimpleGrid>
+			<Space/>
+			{
+				user?.__typename !== 'Student' && (
+					<Stack>
+						<Title order={3}>Submissions</Title>
+						<Table verticalSpacing='sm'>
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Files</th>
+									<th>Score</th>
+								</tr>
+							</thead>
+							<tbody>
+								{
+									assignment.submissions?.map(a => (
+										<tr>
+											<td>{a.student?.firstName} {a.student?.lastName}</td>
+											<td>{a.files.map(x => <Anchor size="sm">{x}</Anchor>)}</td>
+											<td>{a.score === -1 ? 'No Score' : a.score}</td>
+										</tr>
+									))
+								}
+							</tbody>
+						</Table>
+					</Stack>
+				)
+			}
 		</Stack>
 		</>
 	)

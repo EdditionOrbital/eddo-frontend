@@ -23,6 +23,29 @@ export const READ_ASSIGNMENT = gql`
 	}
 `
 
+export const READ_ASSIGNMENT_WITH_SUBMISSIONS = gql`
+	query ReadAssignment($_id: ID!) {
+		readAssignment(_id: $_id) {
+			_id
+			open
+			close
+			title
+			instructions
+			files
+			maxScore
+			submissions {
+				student {
+					firstName
+					lastName
+				}
+				files
+				date
+				score
+			}
+		}
+	}
+`
+
 export const READ_MODULE_ASSIGNMENTS = gql`
 	query ReadModuleAssignments($moduleId: ID!) {
 		readModule(id: $moduleId) {
