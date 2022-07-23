@@ -26,7 +26,7 @@ export default function QuizList() {
 		if (data && data.readModule) setQuizzes(data.readModule.quizzes)
 	}, [data])
 	useEffect(() => {
-		if (!user?.quizSubmissions) getQuizSubmissions()
+		if (user?.__typename === 'Student' && !user?.quizSubmissions) getQuizSubmissions()
 	}, [user])
 	const makeSubmissionBadge = (quizId: string | undefined) => {
 		if (!user || !quizId) return <></>
