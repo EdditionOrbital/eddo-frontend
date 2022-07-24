@@ -1,4 +1,5 @@
 import moment from "moment";
+import { Announcement } from "../types/announcement.type";
 import { Assignment } from "../types/assignment.type";
 import { Media } from "../types/media.type";
 import { MCOption, Quiz, QuizQuestion } from "../types/quiz.type";
@@ -41,4 +42,11 @@ export const emptyQuizQuestion: (type: string, order: number) => QuizQuestion = 
 export const emptyMCOption: () => MCOption = () => ({
 	_id: Math.random().toString(36).slice(2),
 	value: ''
+})
+
+export const emptyAnnouncement: (moduleId: string) => Announcement = (moduleId: string) => ({
+	title: '',
+	moduleId,
+	date: new Date().toISOString(),
+	content: ''
 })

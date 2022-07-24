@@ -1,3 +1,4 @@
+import { Announcement } from "./announcement.type"
 import { AssignmentSubmission } from "./assignment.type"
 import { Lesson } from "./lesson.type"
 import { ModuleTaken } from "./module.type"
@@ -18,4 +19,5 @@ export interface User {
 	tasks?: Task[]
 	assignmentSubmissions?: AssignmentSubmission[]
 	quizSubmissions?: QuizSubmission[]
+	announcements?: Announcement[]
 }

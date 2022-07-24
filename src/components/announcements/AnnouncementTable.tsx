@@ -1,56 +1,34 @@
-import { Table } from "@mantine/core";
-import { useState } from "react";
+import { useLazyQuery } from "@apollo/client";
+import { Group, Table, Text } from "@mantine/core";
+import moment from "moment";
+import { useContext, useEffect, useState } from "react";
+import { Plus } from "tabler-icons-react";
+import { emptyAnnouncement } from "../../constants/emptyTypes";
+import { READ_CURRENT_USER_ANNOUNCEMENTS } from "../../queries/announcement";
+import { UserContext } from "../../services/userContextProvider";
 import { Announcement } from "../../types/announcement.type";
 import AnnouncementModal from "./AnnouncementModal";
 
-const announcements: Announcement[] = [
-	{
-		date: '26th May, 9:02 PM',
-		title: 'Lorem Ipsum 1',
-		author: 'Professor 1',
-		moduleId: 'CS2100',
-		authorId: null,
-		content: null
-	},
-	{
-		date: '26th May, 9:02 PM',
-		title: 'Lorem Ipsum 1',
-		author: 'Professor 2',
-		moduleId: 'CS2040',
-		authorId: null,
-		content: null
-	},
-	{
-		date: '26th May, 9:02 PM',
-		title: 'Lorem Ipsum 2',
-		author: 'Professor 1',
-		moduleId: 'CS2100',
-		authorId: null,
-		content: null
-	},
-	{
-		date: '26th May, 9:02 PM',
-		title: 'Lorem Ipsum 3',
-		author: 'Professor 1',
-		moduleId: 'CS2100',
-		authorId: null,
-		content: null
-	},
-	{
-		date: '26th May, 9:02 PM',
-		title: 'Lorem Ipsum 1',
-		author: 'Professor 3',
-		moduleId: 'MA2001',
-		authorId: null,
-		content: null
-	}
-]
-
 const AnnouncementTable = () => {
 
-	/*TODO: Add query for context announcements*/
+	const { user, setUser } = useContext(UserContext)
+
+	const [getAnnouncements] = useLazyQuery(READ_CURRENT_USER_ANNOUNCEMENTS, {
+		onCompleted: ({ currentUser }) => {
+			if (user && currentUser) {
+				setUser({ ...user, ...currentUser })
+			}
+		}
+	})
+
+	useEffect(() => {
+		if (user && !user?.announcements) getAnnouncements()
+		// eslint-disable-next-line
+	}, [user])
 
 	const [currentAnnouncement, setCurrentAnnouncement] = useState<Announcement | null>(null);
+
+	if (!user?.announcements) return <></>
 
 	return (
 		<>
@@ -66,9 +44,16 @@ const AnnouncementTable = () => {
 				</thead>
 				<tbody>
 					{
-						announcements.map(a => (
+						user.__typename === 'Staff' && (
+							<tr className="fade-hover-card" onClick={() => setCurrentAnnouncement(emptyAnnouncement(user.modules && user.modules.length > 0 ? user.modules[0].moduleId : ''))}>
+								<td colSpan={4}><Group><Plus size={16}/><Text>New</Text></Group></td>
+							</tr>
+						)
+					}
+					{
+						user?.announcements.map(a => (
 							<tr key={`${a.date}-${a.title}`} onClick={() => setCurrentAnnouncement(a)} className="fade-hover-card">
-								<td>{a.date}</td>
+								<td>{moment(a.date).format("DD/MM/YY, hh:mm A")}</td>
 								<td>{a.title}</td>
 								<td>{a.author}</td>
 								<td>{a.moduleId}</td>
