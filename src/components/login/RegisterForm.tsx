@@ -34,14 +34,14 @@ const RegisterForm = () => {
             password: form.values.password,
             mYear: parseInt(form.values.yearOrTitle)
         },
-        onCompleted: ({ registerStudent }) => {
-            if (registerStudent.response) {
-                localStorage.setItem(AUTH_TOKEN, registerStudent.response)
+        onCompleted: ({ createStudent }) => {
+            if (createStudent.response) {
+                localStorage.setItem(AUTH_TOKEN, createStudent.response)
                 window.location.reload()
             } else {
                 showNotification({
                     title: 'Student Register Failed',
-                    message: registerStudent.error
+                    message: createStudent.error
                 })
             }
         }
@@ -56,14 +56,14 @@ const RegisterForm = () => {
             password: form.values.password,
             title: form.values.yearOrTitle
         },
-        onCompleted: ({ registerStaff }) => {
-            if (registerStaff.response) {
-                localStorage.setItem(AUTH_TOKEN, registerStaff.response)
+        onCompleted: ({ createStaff }) => {
+            if (createStaff.response) {
+                localStorage.setItem(AUTH_TOKEN, createStaff.response)
                 window.location.reload()
             } else {
                 showNotification({
                     title: 'Staff Register Failed',
-                    message: registerStaff.error
+                    message: createStaff.error
                 })
             }
         }
