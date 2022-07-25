@@ -42,7 +42,7 @@ export default function ModuleSubpage() {
 				</Group>
 				<Space/>
 				<Routes>
-					<Route path={`/`} element={<ModuleDashboard/>}/>
+					<Route path={`/`} element={<ModuleDashboard module={module}/>}/>
 					<Route path={`/details`} element={<ModuleDetails module={module}/>}/>
 					<Route path={`/resources`} element={<ModuleResources module={module}/>}/>
 					<Route path={`/media/*`} element={<ModuleMedia/>}/>

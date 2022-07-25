@@ -20,6 +20,12 @@ export const READ_MODULE_DASHBOARD = gql`
             code
             year
             semester
+            staffs {
+                firstName
+                lastName
+                email
+                title
+            }
         }
     }
 `

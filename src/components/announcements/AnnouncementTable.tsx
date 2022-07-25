@@ -9,7 +9,12 @@ import { UserContext } from "../../services/userContextProvider";
 import { Announcement } from "../../types/announcement.type";
 import AnnouncementModal from "./AnnouncementModal";
 
-const AnnouncementTable = () => {
+interface AnnouncementTableProps {
+	limit?: number
+	module?: string
+}
+
+const AnnouncementTable = (props: AnnouncementTableProps) => {
 
 	const { user, setUser } = useContext(UserContext)
 
@@ -39,7 +44,7 @@ const AnnouncementTable = () => {
 						<th>Date</th>
 						<th>Announcement Title</th>
 						<th>Author</th>
-						<th>Module</th>
+						{!props.module && <th>Module</th>}
 					</tr>
 				</thead>
 				<tbody>
@@ -51,12 +56,12 @@ const AnnouncementTable = () => {
 						)
 					}
 					{
-						user?.announcements.map(a => (
+						user?.announcements.filter(a => props.module ? a.moduleId === props.module : true).slice(0, props.limit || user.announcements.length).map(a => (
 							<tr key={`${a.date}-${a.title}`} onClick={() => setCurrentAnnouncement(a)} className="fade-hover-card">
 								<td>{moment(a.date).format("DD/MM/YY, hh:mm A")}</td>
 								<td>{a.title}</td>
 								<td>{a.author}</td>
-								<td>{a.moduleId}</td>
+								{!props.module && <td>{a.moduleId.split('-')[0]}</td>}
 							</tr>
 						))
 					}

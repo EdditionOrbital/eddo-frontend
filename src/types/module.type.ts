@@ -10,6 +10,7 @@ export interface Module {
 	year: number
 	semester: number
 	students: User[]
+	staffs?: User[]
 }
 
 export interface ModuleTaken {
